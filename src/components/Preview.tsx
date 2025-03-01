@@ -16,7 +16,7 @@ export default function Preview() {
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-            <div className="w-[90%] h-[90%] flex flex-col bg-gradient-to-b from-gray-50 to-gray-200 shadow-lg rounded-lg overflow-auto p-6">
+            <div className="w-[100%] h-[100%] flex flex-col bg-gradient-to-b from-gray-50 to-gray-200 shadow-lg rounded-lg overflow-auto p-6">
                 {isEmpty ? (
                     <div className="text-black text-center p-6">
                         No elements on the palette. Drag and drop components to get started!
@@ -34,7 +34,7 @@ export default function Preview() {
                         <div className="flex flex-wrap justify-center gap-4">
                             
                             {leftStack.length > 0 && (
-                                <div className="p-4">
+                                <div className="p-4 flex flex-col gap-2">
                                     {leftStack.map((comp, index) => (
                                         <Component key={index} {...comp} />
                                     ))}
@@ -42,7 +42,7 @@ export default function Preview() {
                             )}
 
                             {rightStack.length > 0 && (
-                                <div className="p-4">
+                                <div className="p-4 flex flex-col gap-2">
                                     {rightStack.map((comp, index) => (
                                         <Component key={index} {...comp} />
                                     ))}
