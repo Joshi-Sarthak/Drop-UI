@@ -102,7 +102,7 @@ function StackItem({
                         </div>
                     </PopoverTrigger>
                     <PopoverContent>
-                        <div className="flex">
+                        <div className="flex bg-white rounded border shadow-xl">
                             <Button isIconOnly>
                                 <Pencil1Icon />
                             </Button>
