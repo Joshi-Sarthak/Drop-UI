@@ -1,7 +1,9 @@
 import {
     attachClosestEdge,
+    Edge,
     extractClosestEdge,
 } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge"
+import {DropIndicator} from "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box"
 import {dropTargetForElements} from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
 import {useEffect, useRef, useState} from "react"
 import {StaticComponent} from "../store"
@@ -20,6 +22,7 @@ function StackItem({
 }) {
     const ref = useRef<HTMLDivElement>(null)
     const [isDraggedOver, setIsDraggedOver] = useState(false)
+    const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
     useEffect(() => {
         if (!ref.current) return
         return dropTargetForElements({
@@ -33,9 +36,19 @@ function StackItem({
                         allowedEdges: ["left", "right"],
                     },
                 ),
-            onDragEnter: () => setIsDraggedOver(true),
-            onDragLeave: () => setIsDraggedOver(false),
+            onDragStart: ({self}) => {
+                setClosestEdge(extractClosestEdge(self.data))
+            },
+            onDragEnter: ({self}) => {
+                setClosestEdge(extractClosestEdge(self.data))
+                setIsDraggedOver(true)
+            },
+            onDragLeave: () => {
+                setClosestEdge(null)
+                setIsDraggedOver(false)
+            },
             onDrop: ({self, source}) => {
+                setClosestEdge(null)
                 const closestEdgdeOfTarget = extractClosestEdge(self.data)
                 if (closestEdgdeOfTarget == "left") {
                     setComponents([
@@ -60,9 +73,15 @@ function StackItem({
         })
     }, [index, components, setComponents])
     return (
-        <div ref={ref} className={`flex flex-col ${isDraggedOver && "opacity-50"}`}>
-            <Component {...children} />
-        </div>
+        <>
+            <div
+                ref={ref}
+                className={`relative flex flex-col ${isDraggedOver && "opacity-50"}`}
+            >
+                <Component {...children} />
+                {closestEdge && <DropIndicator edge={closestEdge} />}
+            </div>
+        </>
     )
 }
 
