@@ -169,7 +169,7 @@ function EmptyStack({props}: {props: StackProps}) {
     return (
         <div
             ref={ref}
-            className={`relative flex flex-col border-dashed border-gray-300 border-2 m-1 rounded ${isDraggedOver && "bg-blue-300 border-blue-400"}`}
+            className={`relative flex flex-col border-dashed border-2 m-1 rounded ${isDraggedOver ? "bg-blue-300 border-black" : "border-gray-300"}`}
         >
             <span
                 className={`font-semibold p-10 ${
