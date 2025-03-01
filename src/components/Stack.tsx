@@ -16,6 +16,7 @@ import {LightningBoltIcon, Pencil1Icon, TrashIcon} from "@radix-ui/react-icons"
 import {useEffect, useRef, useState} from "react"
 import {StaticComponent} from "../store"
 import Component from "./Component"
+import ComponentEditor from "./ComponentEditor"
 
 function StackItem({
     index,
@@ -94,7 +95,17 @@ function StackItem({
                 className={`relative flex flex-col ${isDraggedOver && "opacity-50"}`}
             >
                 {isEditing ?
-                    <ComponentEditor {...children} />
+                    <ComponentEditor
+                        {...children}
+                        onEditingDone={() => {
+                            setIsEditing(false)
+                            props.setComponents(
+                                props.components.map((component, i) =>
+                                    i === index ? children : component,
+                                ),
+                            )
+                        }}
+                    />
                 :   <Popover
                         isOpen={disclosure.isOpen}
                         onOpenChange={disclosure.onOpenChange}
