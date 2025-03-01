@@ -41,7 +41,7 @@ export default function NavBar() {
                         className="flex justify-center gap-2 items-center mx-auto text-md bg-gray-50 backdrop-blur-md lg:font-semibold border-gray-50 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
                     >
                         <svg
-                            className="w-8 h-8 group-hover:rotate-[135deg] group-hover:bg-gray-50 text-gray-800 ease-linear duration-300 rounded-full border border-gray-700 group-hover:border-none p-2 rotate-[90deg]"
+                            className="w-8 h-8 group-hover:rotate-[270deg] group-hover:bg-gray-50 text-gray-800 ease-linear duration-300 rounded-full border border-gray-700 group-hover:border-none p-2 rotate-180"
                             viewBox="0 0 16 19"
                             xmlns="http://www.w3.org/2000/svg"
                         >
