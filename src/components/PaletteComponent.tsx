@@ -1,4 +1,5 @@
-import {Component, useEffect, useLayoutEffect, useRef, useState} from "react"
+import {useEffect, useLayoutEffect, useRef, useState} from "react"
+import Component from "./Component"
 
 export interface PaletteComponentProps {
     code: string
@@ -17,11 +18,9 @@ export default function PaletteComponent({code}: PaletteComponentProps) {
         setContainerHeight(containerRect.width / aspectRatio)
         setComponentScale(containerRect.width / componentRect.width)
     }
-    const onResizeTimeout = useRef<number>(undefined)
     useEffect(() => {
         function onResize() {
-            clearTimeout(onResizeTimeout.current)
-            onResizeTimeout.current = setTimeout(update, 100)
+            setTimeout(update, 500)
         }
         window.addEventListener("resize", onResize)
         return () => {

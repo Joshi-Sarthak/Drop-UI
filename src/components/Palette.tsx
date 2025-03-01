@@ -1,7 +1,6 @@
-import PaletteComponent from "./PaletteComponent"
-
 const components = [
     {
+        title: "Button 1",
         code: `
         <button title="Save" class="cursor-pointer flex items-center fill-lime-400 bg-lime-950 hover:bg-lime-900 active:border active:border-lime-400 rounded-md duration-100 p-2">
             <svg viewBox="0 -0.5 25 25" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg">
@@ -12,6 +11,7 @@ const components = [
         `,
     },
     {
+        title: "Form 1",
         code: `
 <form>
       <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">
@@ -69,7 +69,13 @@ export default function Palette() {
     return (
         <div className="flex flex-col p-2 gap-2">
             {components.map((component, i) => (
-                <PaletteComponent key={i} {...component} />
+                // <PaletteComponent key={i} {...component} />
+                <div
+                    key={i}
+                    className="flex flex-col gap-2 bg-blue-500 rounded-sm shadow p-2"
+                >
+                    <h2 className="text-xl font-bold text-white">{component.title}</h2>
+                </div>
             ))}
         </div>
     )
