@@ -1,3 +1,4 @@
+import {draggable} from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
 import {useEffect, useLayoutEffect, useRef, useState} from "react"
 import Component from "./Component"
 
@@ -10,6 +11,7 @@ export interface PaletteComponentProps {
 }
 
 export default function PaletteComponent({code}: PaletteComponentProps) {
+    const ref = useRef<HTMLDivElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
     const componentRef = useRef<HTMLDivElement>(null)
     const [containerHeight, setContainerHeight] = useState(0)
@@ -42,8 +44,20 @@ export default function PaletteComponent({code}: PaletteComponentProps) {
         }
     }, [])
     useLayoutEffect(update, [])
+    const [isBeingDragged, setIsBeingDragged] = useState(false)
+    useEffect(() => {
+        if (!ref.current) return
+        return draggable({
+            element: ref.current,
+            onDragStart: () => setIsBeingDragged(true),
+            onDrop: () => setIsBeingDragged(false),
+        })
+    }, [])
     return (
-        <div className="bg-blue-300 rounded-sm shadow p-1">
+        <div
+            ref={ref}
+            className={`bg-blue-300 rounded-sm shadow p-1 ${isBeingDragged && "opacity-50"}`}
+        >
             <div ref={containerRef} style={{height: `${containerHeight}px`}}>
                 <div className="relative w-[800px]">
                     <div
