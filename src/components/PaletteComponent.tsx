@@ -25,7 +25,7 @@ export default function PaletteComponent({code}: PaletteComponentProps) {
                     <div
                         ref={componentRef}
                         className="absolute origin-top-left"
-                        style={{scale: componentScale}}
+                        style={{scale: Math.min(componentScale, 1)}}
                     >
                         <Component code={code} />
                     </div>
