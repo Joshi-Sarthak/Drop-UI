@@ -61,6 +61,7 @@ import htmlReactParser from "html-react-parser"
 // }
 
 export interface ComponentProps {
+    title: string
     code: string
 }
 

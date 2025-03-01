@@ -7,51 +7,54 @@ export interface StaticComponent {
 
 export interface Store {
     project: {
-        headerComponent?: StaticComponent
-        leftComponent?: StaticComponent
-        rightComponent?: StaticComponent
-        footerComponent?: StaticComponent
-        setHeaderComponent: (component?: StaticComponent) => void
-        setLeftComponent: (component?: StaticComponent) => void
-        setRightComponent: (component?: StaticComponent) => void
-        setFooterComponent: (component?: StaticComponent) => void
+        headerStack: StaticComponent[]
+        leftStack: StaticComponent[]
+        rightStack: StaticComponent[]
+        footerStack: StaticComponent[]
+        setHeaderStack: (stack: StaticComponent[]) => void
+        setLeftStack: (stack: StaticComponent[]) => void
+        setRightStack: (stack: StaticComponent[]) => void
+        setFooterStack: (stack: StaticComponent[]) => void
     }
 }
 
 const useStore = create<Store>()((set) => ({
     project: {
-        setHeaderComponent: (component) => {
-            set((state) => ({
+        headerStack: [
+            {title: "Header Component 1", code: "<div>Header Component 1</div>"},
+            {title: "Header Component 2", code: "<div>Header Component 2</div>"},
+        ],
+        leftStack: [],
+        rightStack: [],
+        footerStack: [],
+        setHeaderStack: (stack) =>
+            set((store) => ({
                 project: {
-                    ...state.project,
-                    headerComponent: component,
+                    ...store.project,
+                    headerStack: stack,
                 },
-            }))
-        },
-        setLeftComponent: (component) => {
-            set((state) => ({
+            })),
+        setLeftStack: (stack) =>
+            set((store) => ({
                 project: {
-                    ...state.project,
-                    leftComponent: component,
+                    ...store.project,
+                    leftStack: stack,
                 },
-            }))
-        },
-        setRightComponent: (component) => {
-            set((state) => ({
+            })),
+        setRightStack: (stack) =>
+            set((store) => ({
                 project: {
-                    ...state.project,
-                    rightComponent: component,
+                    ...store.project,
+                    rightStack: stack,
                 },
-            }))
-        },
-        setFooterComponent: (component) => {
-            set((state) => ({
+            })),
+        setFooterStack: (stack) =>
+            set((store) => ({
                 project: {
-                    ...state.project,
-                    footerComponent: component,
+                    ...store.project,
+                    footerStack: stack,
                 },
-            }))
-        },
+            })),
     },
 }))
 
