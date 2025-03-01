@@ -20,17 +20,15 @@ export default function PaletteComponent({code}: PaletteComponentProps) {
     }, [code])
     return (
         <div className="bg-blue-500 rounded-sm shadow">
-            <div
-                ref={containerRef}
-                className="relative"
-                style={{height: `${containerHeight}px`}}
-            >
-                <div
-                    ref={componentRef}
-                    className="absolute left-0 top-0 origin-top-left"
-                    style={{scale: componentScale}}
-                >
-                    <Component code={code} />
+            <div ref={containerRef} style={{height: `${containerHeight}px`}}>
+                <div className="relative w-[800px]">
+                    <div
+                        ref={componentRef}
+                        className="absolute origin-top-left"
+                        style={{scale: componentScale}}
+                    >
+                        <Component code={code} />
+                    </div>
                 </div>
             </div>
         </div>
