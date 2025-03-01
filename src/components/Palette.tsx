@@ -1,3 +1,3 @@
 export default function Palette() {
-    return null
+    return <div>Palette</div>
 }
