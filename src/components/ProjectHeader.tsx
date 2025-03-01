@@ -1,3 +1,3 @@
 export default function ProjectHeader() {
-    return <div>ProjectHeader</div>
+    return <div className="flex-[0_1_auto]">ProjectHeader</div>
 }
