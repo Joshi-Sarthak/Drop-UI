@@ -1,7 +1,7 @@
 import "allotment/dist/style.css"
 import Editor from "./components/Editor"
-import NavBar from "./components/NavBar"
 import Footer from "./components/Footer"
+import NavBar from "./components/NavBar"
 import Palette from "./components/Palette"
 import RightPanel from "./components/RightPanel"
 
