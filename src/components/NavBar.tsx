@@ -1,8 +1,11 @@
-import favicon from "../../public/favicon.svg"
+import { useNavigate } from "react-router-dom";
+import favicon from "../../public/favicon.svg";
 
 export default function NavBar() {
+    const navigate = useNavigate();
+
     return (
-        <nav className="flex items-center justify-between px-6 py-4 bg-neutral-200 ">
+        <nav className="flex items-center justify-between px-6 py-4 bg-neutral-200">
             <div className="flex items-center space-x-2">
                 <span className="flex items-center justify-center w-8 h-8 rounded-md bg-neutral-400">
                     <img
@@ -16,8 +19,9 @@ export default function NavBar() {
 
             <div className="hidden md:flex items-center space-x-6">
                 <button
-                    type="submit"
-                    className="flex justify-center gap-2 items-center mx-auto  text-md bg-gray-50 backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-neutral-200  before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
+                    type="button"
+                    onClick={() => navigate("/preview")}
+                    className="flex justify-center gap-2 items-center mx-auto text-md bg-gray-50 backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-neutral-200 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
                 >
                     Preview
                     <svg
@@ -33,5 +37,5 @@ export default function NavBar() {
                 </button>
             </div>
         </nav>
-    )
+    );
 }
