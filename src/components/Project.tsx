@@ -8,7 +8,7 @@ export default function Project() {
     return (
         <div className="h-full flex flex-col">
             <ProjectHeader />
-            <div className="flex flex-col flex-[1_1_auto]">
+            <div className="flex flex-col flex-[1_1_auto] ">
                 <Allotment>
                     <Allotment.Pane snap preferredSize={`50%`}>
                         <ProjectLeftContent />
