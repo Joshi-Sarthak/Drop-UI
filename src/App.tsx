@@ -1,4 +1,3 @@
-import {Allotment} from "allotment"
 import "allotment/dist/style.css"
 import Editor from "./components/Editor"
 import NavBar from "./components/NavBar"
@@ -8,12 +7,14 @@ export default function App() {
     return (
         <>
             <NavBar />
-            <Palette />
-            <Allotment className="flex-[1_1_auto]">
-                <Allotment.Pane snap>
+            <div className="flex h-screen">
+                <div className="w-1/5 bg-gray-100 flex-shrink-0">
+                    <Palette />
+                </div>
+                <div className="flex-1">
                     <Editor />
-                </Allotment.Pane>
-            </Allotment>
+                </div>
+            </div>
         </>
     )
 }
