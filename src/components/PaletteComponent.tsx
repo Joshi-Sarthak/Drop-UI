@@ -43,7 +43,7 @@ export default function PaletteComponent({code}: PaletteComponentProps) {
     }, [])
     useLayoutEffect(update, [])
     return (
-        <div className="bg-blue-500 rounded-sm shadow">
+        <div className="bg-blue-300 rounded-sm shadow p-1">
             <div ref={containerRef} style={{height: `${containerHeight}px`}}>
                 <div className="relative w-[800px]">
                     <div
