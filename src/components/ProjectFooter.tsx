@@ -1,7 +1,16 @@
-export default function ProjectFooter() {
+import useStore from "../store"
+import Stack from "./Stack"
+
+export default function ProjectFooterContent() {
+    const footerStack = useStore((state) => state.project.footerStack)
+    const setFooterStack = useStore((state) => state.project.setFooterStack)
     return (
-        <div className="flex-[0_1_auto] border-2 border-dashed border-neutral-500 bg-neutral-100 py-6 text-center rounded-2xl m-1">
-            <p className="text-neutral-600 font-medium">Place your footer here</p>
+        <div className="flex-[0_1_auto]">
+            <Stack
+                direction="vertical"
+                components={footerStack}
+                setComponents={setFooterStack}
+            />
         </div>
     )
 }

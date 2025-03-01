@@ -20,10 +20,7 @@ export interface Store {
 
 const useStore = create<Store>()((set) => ({
     project: {
-        headerStack: [
-            {title: "Header Component 1", code: "<div>Header Component 1</div>"},
-            {title: "Header Component 2", code: "<div>Header Component 2</div>"},
-        ],
+        headerStack: [],
         leftStack: [],
         rightStack: [],
         footerStack: [],

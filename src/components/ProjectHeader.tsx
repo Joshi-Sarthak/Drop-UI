@@ -6,7 +6,11 @@ export default function ProjectHeader() {
     const setHeaderStack = useStore((state) => state.project.setHeaderStack)
     return (
         <div className="flex-[0_1_auto]">
-            <Stack components={headerStack} setComponents={setHeaderStack} />
+            <Stack
+                direction="horizontal"
+                components={headerStack}
+                setComponents={setHeaderStack}
+            />
         </div>
     )
 }

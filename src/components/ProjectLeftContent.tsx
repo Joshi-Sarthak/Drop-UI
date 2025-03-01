@@ -1,7 +1,16 @@
+import useStore from "../store"
+import Stack from "./Stack"
+
 export default function ProjectLeftContent() {
+    const leftStack = useStore((state) => state.project.leftStack)
+    const setLeftStack = useStore((state) => state.project.setLeftStack)
     return (
-        <div className="flex-[0_1_auto] flex border-2 border-dashed border-neutral-500 bg-neutral-100 h-full text-center items-center rounded-2xl justify-center mx-1">
-            <p className="text-neutral-600 font-medium">Place your content here</p>
+        <div className="flex-[0_1_auto]">
+            <Stack
+                direction="vertical"
+                components={leftStack}
+                setComponents={setLeftStack}
+            />
         </div>
     )
 }
