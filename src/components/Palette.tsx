@@ -1,4 +1,4 @@
-import Component from "./Component"
+import PaletteComponent from "./PaletteComponent"
 
 const components = [
     {
@@ -15,11 +15,9 @@ const components = [
 
 export default function Palette() {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col p-2 gap-2">
             {components.map((component, i) => (
-                <div className="frozen" key={i}>
-                    <Component code={component.code} />
-                </div>
+                <PaletteComponent key={i} {...component} />
             ))}
         </div>
     )
