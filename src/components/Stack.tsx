@@ -84,6 +84,8 @@ function StackItem({
             },
         })
     }, [index, props])
+    // TODO: Prevent drag-and-drop when editing
+    const [isEditing, setIsEditing] = useState(false)
     const disclosure = useDisclosure()
     return (
         <>
@@ -91,37 +93,47 @@ function StackItem({
                 ref={ref}
                 className={`relative flex flex-col ${isDraggedOver && "opacity-50"}`}
             >
-                <Popover
-                    isOpen={disclosure.isOpen}
-                    onOpenChange={disclosure.onOpenChange}
-                    placement="top"
-                >
-                    <PopoverTrigger>
-                        <div>
-                            <Component {...children} />
-                        </div>
-                    </PopoverTrigger>
-                    <PopoverContent>
-                        <div className="flex bg-white rounded border shadow-xl">
-                            <Button isIconOnly>
-                                <Pencil1Icon />
-                            </Button>
-                            <Button isIconOnly>
-                                <LightningBoltIcon />
-                            </Button>
-                            <Button
-                                isIconOnly
-                                onPress={() => {
-                                    props.setComponents(
-                                        props.components.filter((_, i) => i !== index),
-                                    )
-                                }}
-                            >
-                                <TrashIcon />
-                            </Button>
-                        </div>
-                    </PopoverContent>
-                </Popover>
+                {isEditing ?
+                    <ComponentEditor {...children} />
+                :   <Popover
+                        isOpen={disclosure.isOpen}
+                        onOpenChange={disclosure.onOpenChange}
+                        placement="top"
+                    >
+                        <PopoverTrigger>
+                            <div>
+                                <Component {...children} />
+                            </div>
+                        </PopoverTrigger>
+                        <PopoverContent>
+                            <div className="flex bg-white rounded border shadow-xl">
+                                <Button
+                                    isIconOnly
+                                    onPress={() => {
+                                        setIsEditing(true)
+                                    }}
+                                >
+                                    <Pencil1Icon />
+                                </Button>
+                                <Button isIconOnly>
+                                    <LightningBoltIcon />
+                                </Button>
+                                <Button
+                                    isIconOnly
+                                    onPress={() => {
+                                        props.setComponents(
+                                            props.components.filter(
+                                                (_, i) => i !== index,
+                                            ),
+                                        )
+                                    }}
+                                >
+                                    <TrashIcon />
+                                </Button>
+                            </div>
+                        </PopoverContent>
+                    </Popover>
+                }
                 {closestEdge && <DropIndicator edge={closestEdge} />}
             </div>
         </>
