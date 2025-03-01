@@ -1,3 +1,5 @@
+import PaletteComponent from "./PaletteComponent"
+
 const components = [
     {
         title: "Button 1",
@@ -69,13 +71,7 @@ export default function Palette() {
     return (
         <div className="flex flex-col p-2 gap-2">
             {components.map((component, i) => (
-                // <PaletteComponent key={i} {...component} />
-                <div
-                    key={i}
-                    className="flex flex-col gap-2 bg-blue-500 rounded-sm shadow p-2"
-                >
-                    <h2 className="text-xl font-bold text-white">{component.title}</h2>
-                </div>
+                <PaletteComponent key={i} {...component} />
             ))}
         </div>
     )

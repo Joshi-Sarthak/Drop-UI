@@ -1,6 +1,10 @@
 import {useEffect, useLayoutEffect, useRef, useState} from "react"
 import Component from "./Component"
 
+function forceReflow(el: HTMLElement) {
+    return el.offsetHeight
+}
+
 export interface PaletteComponentProps {
     code: string
 }
@@ -13,14 +17,24 @@ export default function PaletteComponent({code}: PaletteComponentProps) {
     function update() {
         if (!containerRef.current || !componentRef.current) return
         const containerRect = containerRef.current.getBoundingClientRect()
+        componentRef.current.style.scale = "1"
+        forceReflow(componentRef.current)
         const componentRect = componentRef.current.getBoundingClientRect()
         const aspectRatio = componentRect.width / componentRect.height
-        setContainerHeight(containerRect.width / aspectRatio)
-        setComponentScale(containerRect.width / componentRect.width)
+        const componentScale = containerRect.width / componentRect.width
+        if (componentScale > 1) {
+            setComponentScale(1)
+            setContainerHeight(componentRect.height)
+        } else {
+            setComponentScale(componentScale)
+            setContainerHeight(containerRect.width / aspectRatio)
+        }
     }
+    const onResizeTimeout = useRef<number>(undefined)
     useEffect(() => {
         function onResize() {
-            setTimeout(update, 500)
+            clearTimeout(onResizeTimeout.current)
+            onResizeTimeout.current = setTimeout(update, 50)
         }
         window.addEventListener("resize", onResize)
         return () => {
@@ -35,7 +49,7 @@ export default function PaletteComponent({code}: PaletteComponentProps) {
                     <div
                         ref={componentRef}
                         className="absolute origin-top-left"
-                        style={{scale: Math.min(componentScale, 1)}}
+                        style={{scale: componentScale}}
                     >
                         <Component code={code} />
                     </div>
