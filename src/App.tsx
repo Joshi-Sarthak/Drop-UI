@@ -8,10 +8,8 @@ export default function App() {
     return (
         <>
             <NavBar />
+            <Palette />
             <Allotment className="flex-[1_1_auto]">
-                <Allotment.Pane minSize={128} preferredSize={192}>
-                    <Palette />
-                </Allotment.Pane>
                 <Allotment.Pane snap>
                     <Editor />
                 </Allotment.Pane>
