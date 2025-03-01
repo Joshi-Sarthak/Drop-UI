@@ -7,10 +7,11 @@ function forceReflow(el: HTMLElement) {
 }
 
 export interface PaletteComponentProps {
+    title: string
     code: string
 }
 
-export default function PaletteComponent({code}: PaletteComponentProps) {
+export default function PaletteComponent({title, code}: PaletteComponentProps) {
     const ref = useRef<HTMLDivElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
     const componentRef = useRef<HTMLDivElement>(null)
@@ -49,6 +50,9 @@ export default function PaletteComponent({code}: PaletteComponentProps) {
         if (!ref.current) return
         return draggable({
             element: ref.current,
+            getInitialData: () => {
+                return {title, code}
+            },
             onDragStart: () => setIsBeingDragged(true),
             onDrop: () => setIsBeingDragged(false),
         })
