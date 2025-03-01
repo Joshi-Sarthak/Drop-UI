@@ -1,5 +1,4 @@
-import {useLayoutEffect, useRef, useState} from "react"
-import Component from "./Component"
+import {Component, useEffect, useLayoutEffect, useRef, useState} from "react"
 
 export interface PaletteComponentProps {
     code: string
@@ -10,14 +9,26 @@ export default function PaletteComponent({code}: PaletteComponentProps) {
     const componentRef = useRef<HTMLDivElement>(null)
     const [containerHeight, setContainerHeight] = useState(0)
     const [componentScale, setComponentScale] = useState(1)
-    useLayoutEffect(() => {
+    function update() {
         if (!containerRef.current || !componentRef.current) return
         const containerRect = containerRef.current.getBoundingClientRect()
         const componentRect = componentRef.current.getBoundingClientRect()
         const aspectRatio = componentRect.width / componentRect.height
         setContainerHeight(containerRect.width / aspectRatio)
         setComponentScale(containerRect.width / componentRect.width)
-    }, [code])
+    }
+    const onResizeTimeout = useRef<number>(undefined)
+    useEffect(() => {
+        function onResize() {
+            clearTimeout(onResizeTimeout.current)
+            onResizeTimeout.current = setTimeout(update, 100)
+        }
+        window.addEventListener("resize", onResize)
+        return () => {
+            window.removeEventListener("resize", onResize)
+        }
+    }, [])
+    useLayoutEffect(update, [])
     return (
         <div className="bg-blue-500 rounded-sm shadow">
             <div ref={containerRef} style={{height: `${containerHeight}px`}}>
