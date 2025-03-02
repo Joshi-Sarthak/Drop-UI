@@ -60,7 +60,7 @@ export default function PaletteComponent({title, code}: PaletteComponentProps) {
     return (
         <div
             ref={ref}
-            className={`bg-neutral-100 rounded-sm  p-1 ${isBeingDragged && "opacity-50"}`}
+            className={`bg-neutral-100 rounded-sm shadow p-1 ${isBeingDragged && "opacity-50"}`}
         >
             <div ref={containerRef} style={{height: `${containerHeight}px`}}>
                 <div className="relative w-[800px]">

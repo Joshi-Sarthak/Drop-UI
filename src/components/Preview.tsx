@@ -23,7 +23,7 @@ export default function Preview() {
                     <>
                         {/* Header Stack */}
                         {headerStack.length > 0 && (
-                            <div className="w-full p-4">
+                            <div className="w-full">
                                 {headerStack.map((comp, index) => (
                                     <Component key={index} {...comp} />
                                 ))}
