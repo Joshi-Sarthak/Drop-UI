@@ -18,7 +18,7 @@ export default function NavBar() {
             </div>
 
             <div className="hidden md:flex items-center space-x-6">
-                {location.pathname === "/" ?
+                {location.pathname === "/editor" ?
                     <button
                         type="button"
                         onClick={() => navigate("/preview")}
@@ -36,8 +36,10 @@ export default function NavBar() {
                             ></path>
                         </svg>
                     </button>
+                : location.pathname === "/" ?
+                    <></>
                 :   <button
-                        onClick={() => navigate("/")}
+                        onClick={() => navigate("/editor")}
                         className="flex justify-center gap-2 items-center mx-auto text-md bg-gray-50 backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-neutral-200 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
                     >
                         <svg
