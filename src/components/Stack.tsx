@@ -97,11 +97,11 @@ function StackItem({
                 {isEditing ?
                     <ComponentEditor
                         {...children}
-                        onEditingDone={() => {
+                        onEditingDone={(title, code) => {
                             setIsEditing(false)
                             props.setComponents(
                                 props.components.map((component, i) =>
-                                    i === index ? children : component,
+                                    i === index ? {title, code} : component,
                                 ),
                             )
                         }}
