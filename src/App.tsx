@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar"
 import Palette from "./components/Palette"
 import RightPanel from "./components/RightPanel"
 import Preview from "./components/Preview" // Import Preview Page
+import LandingPage from "./components/LandingPage"
 
 export default function App() {
     return (
@@ -13,8 +14,9 @@ export default function App() {
             <NavBar />
             <Routes>
                 {/* Main Editor Page */}
+                <Route path="/" element={<LandingPage />} />
                 <Route
-                    path="/"
+                    path="/editor"
                     element={
                         <>
                             <div className="flex h-screen">
