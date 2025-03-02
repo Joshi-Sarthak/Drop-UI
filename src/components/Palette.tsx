@@ -12,6 +12,9 @@ import Input3 from "../library/Inputs/Input3"
 import Input4 from "../library/Inputs/Input4"
 import Footer1 from "../library/Footers/Footer1"
 import Footer2 from "../library/Footers/Footer2"
+import Button2 from "../library/Buttons/Button2"
+import Button3 from "../library/Buttons/Button3"
+import Button4 from "../library/Buttons/Button4"
 
 type Component = {
     title: string
@@ -25,6 +28,9 @@ export default function Palette() {
     const [code, setCode] = useState<string[]>([])
     const [components, setComponents] = useState<Component[]>([
         {title: "Button 1", type: "Buttons", code: Button1},
+        {title: "Button 2", type: "Buttons", code: Button2},
+        {title: "Button 3", type: "Buttons", code: Button3},
+        {title: "Button 4", type: "Buttons", code: Button4},
         {title: "Form 1", type: "Forms", code: Form1},
         {title: "Form 2", type: "Forms", code: Form2},
         {title: "Navbar 1", type: "Navbars", code: Navbar1},
