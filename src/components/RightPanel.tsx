@@ -60,7 +60,7 @@ export default function RightPanel() {
             </div>
 
             {suggestion && (
-                <div className="mt-4 p-4 bg-white border border-neutral-300 rounded-lg overflow-auto">
+                <div className="mt-4 p-4 bg-neutral-100 rounded-lg overflow-auto">
                     <h3 className="font-semibold text-lg">AI Suggestion:</h3>
                     <p className="text-sm text-neutral-700 whitespace-pre-line">
                         {suggestion.split("**").map((part, index) =>
