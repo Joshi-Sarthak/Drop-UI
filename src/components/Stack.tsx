@@ -92,7 +92,7 @@ function StackItem({
         <>
             <div
                 ref={ref}
-                className={`relative flex flex-col ${isDraggedOver && "opacity-50"}`}
+                className={`relative flex-grow flex flex-col ${isDraggedOver && "opacity-50"}`}
             >
                 {isEditing ?
                     <ComponentEditor
