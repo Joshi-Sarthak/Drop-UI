@@ -4,6 +4,8 @@ import Button1 from "../library/Buttons/Button1"
 import Form1 from "../library/Forms/Form1"
 import Form2 from "../library/Forms/Form2"
 import {ChevronDown, ChevronRight} from "lucide-react"
+import Navbar1 from "../library/Navbars/Navbar1"
+import Navbar2 from "../library/Navbars/Navbar2"
 
 type Component = {
     title: string
@@ -15,6 +17,8 @@ const components: Component[] = [
     {title: "Button 1", type: "Buttons", code: Button1},
     {title: "Form 1", type: "Forms", code: Form1},
     {title: "Form 2", type: "Forms", code: Form2},
+    {title: "Navbar 1", type: "Navbars", code: Navbar1},
+    {title: "Navbar 2", type: "Navbars", code: Navbar2},
 ]
 
 const groupedComponents = components.reduce(
