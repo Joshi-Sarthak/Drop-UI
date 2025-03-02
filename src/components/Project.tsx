@@ -10,10 +10,10 @@ export default function Project() {
             <ProjectHeader />
             <div className="flex flex-col flex-[1_1_auto] ">
                 <Allotment>
-                    <Allotment.Pane snap preferredSize={`50%`}>
+                    <Allotment.Pane snap preferredSize={`50%`} minSize={0}>
                         <ProjectLeftContent />
                     </Allotment.Pane>
-                    <Allotment.Pane preferredSize={`50%`}>
+                    <Allotment.Pane preferredSize={`50%`} minSize={0}>
                         <ProjectRightContent />
                     </Allotment.Pane>
                 </Allotment>

@@ -10,13 +10,13 @@ import Preview from "./components/Preview" // Import Preview Page
 export default function App() {
     return (
         <Router>
+            <NavBar />
             <Routes>
                 {/* Main Editor Page */}
                 <Route
                     path="/"
                     element={
                         <>
-                            <NavBar />
                             <div className="flex h-screen">
                                 <div className="w-1/5 bg-gray-100 flex-shrink-0">
                                     <Palette />
@@ -28,13 +28,13 @@ export default function App() {
                                     <RightPanel />
                                 </div>
                             </div>
-                            <Footer />
                         </>
                     }
                 />
                 {/* Preview Page */}
                 <Route path="/preview" element={<Preview />} />
             </Routes>
+            <Footer />
         </Router>
     )
 }
