@@ -34,23 +34,19 @@ export default function Preview() {
                         <div className="flex flex-grow w-full p-4">
                             {/* Left Stack */}
                             <div className="w-1/2 p-4 min-h-[300px]">
-                                {leftStack.length > 0 ? (
+                                {leftStack.length > 0 && (
                                     leftStack.map((comp, index) => (
                                         <Component key={index} {...comp} />
                                     ))
-                                ) : (
-                                    <p className="text-gray-500">Drop any component here</p>
                                 )}
                             </div>
 
                             {/* Right Stack */}
                             <div className="w-1/2 p-4 min-h-[300px]">
-                                {rightStack.length > 0 ? (
+                                {rightStack.length > 0 && (
                                     rightStack.map((comp, index) => (
                                         <Component key={index} {...comp} />
                                     ))
-                                ) : (
-                                    <p className="text-gray-500">Drop any component here</p>
                                 )}
                             </div>
                         </div>
