@@ -1,7 +1,8 @@
-import {Link} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import favicon from "../../public/favicon.svg"
 
 export default function NavBar() {
+    const navigate = useNavigate();
     return (
         <nav className="flex items-center justify-between px-6 py-4 backdrop-blur-lg">
             <Link to="/">
