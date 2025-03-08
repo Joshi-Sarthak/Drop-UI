@@ -1,6 +1,7 @@
 import useStore from "@/store"
 import {Edit, SquareMousePointer, Trash} from "lucide-react"
 import {useLayoutEffect, useRef} from "react"
+import {Block} from "./block"
 import Project from "./Project"
 import RightPanel from "./RightPanel"
 import {Button} from "./ui/button"
@@ -19,6 +20,36 @@ export default function Editor() {
     const setRightStack = useStore((store) => store.project.setRightStack)
     const footerStack = useStore((store) => store.project.footerStack)
     const setFooterStack = useStore((store) => store.project.setFooterStack)
+    const isEditing = useStore((store) => store.project.isEditing)
+    const setIsEditing = useStore((store) => store.project.setIsEditing)
+    const editingBlock = useStore((store) => store.project.editingBlock)
+    function replaceSelection(block: Block) {
+        if (!selection) return
+        switch (selection.stack) {
+            case "header":
+                setHeaderStack(
+                    headerStack.map((_, i) => (i === selection.index ? block : _)),
+                )
+                break
+            case "left":
+                setLeftStack(
+                    leftStack.map((_, i) => (i === selection.index ? block : _)),
+                )
+                break
+            case "right":
+                setRightStack(
+                    rightStack.map((_, i) => (i === selection.index ? block : _)),
+                )
+                break
+            case "footer":
+                setFooterStack(
+                    footerStack.map((_, i) => (i === selection.index ? block : _)),
+                )
+                break
+            default:
+                selection.stack satisfies never
+        }
+    }
     function deleteSelection() {
         if (!selection) return
         switch (selection.stack) {
@@ -76,7 +107,17 @@ export default function Editor() {
                     >
                         <Trash />
                     </Button>
-                    <Button size="icon" variant="ghost" disabled={!isSelecting}>
+                    <Button
+                        size="icon"
+                        variant={isEditing ? "default" : "ghost"}
+                        disabled={!isSelecting}
+                        onClick={() => {
+                            setIsEditing(!isEditing)
+                            if (isEditing && editingBlock) {
+                                replaceSelection(editingBlock)
+                            }
+                        }}
+                    >
                         <Edit />
                     </Button>
                 </div>

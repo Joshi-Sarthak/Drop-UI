@@ -1,20 +1,11 @@
-import {Send} from "lucide-react"
 import {useState} from "react"
-import useStore from "../store"
-import {Block} from "./block"
 import {BsStars} from "react-icons/bs"
+import useStore from "../store"
 
 export default function RightPanel() {
-    const {
-        headerStack,
-        leftStack,
-        rightStack,
-        footerStack,
-        setHeaderStack,
-        setLeftStack,
-        setRightStack,
-        setFooterStack,
-    } = useStore((state) => state.project)
+    const {headerStack, leftStack, rightStack, footerStack} = useStore(
+        (state) => state.project,
+    )
 
     const [message, setMessage] = useState({prompt: "", html: ""})
     const [suggestion, setSuggestion] = useState("") // Store API response
@@ -39,37 +30,10 @@ export default function RightPanel() {
                 selectedBlock = undefined
         }
     }
-    function replaceSelectedBlock(block: Block) {
-        if (!selection) return
-        switch (selection.stack) {
-            case "header":
-                setHeaderStack(
-                    headerStack.map((_, i) => (i === selection.index ? block : _)),
-                )
-                break
-            case "left":
-                setLeftStack(
-                    leftStack.map((_, i) => (i === selection.index ? block : _)),
-                )
-                break
-            case "right":
-                setRightStack(
-                    rightStack.map((_, i) => (i === selection.index ? block : _)),
-                )
-                break
-            case "footer":
-                setFooterStack(
-                    footerStack.map((_, i) => (i === selection.index ? block : _)),
-                )
-                break
-            default:
-                selection.stack satisfies never
-        }
-    }
 
     const handleSend = async () => {
         const html = [...headerStack, ...leftStack, ...rightStack, ...footerStack]
-            .map((component) => component.jsx)
+            .map((component) => component.html)
             .join("\n")
         console.log(html)
         const requestBody = {prompt: message.prompt, html}
@@ -156,40 +120,6 @@ export default function RightPanel() {
                                 :   part,
                             )}
                     </p>
-                </div>
-            )}
-
-            {selectedBlock && (
-                <div className="flex flex-col">
-                    <code className="text-sm bg-amber-200 rounded p-2">
-                        {selectedBlock.jsx}
-                    </code>
-
-                    <span className="font-semibold text-lg">Properties</span>
-
-                    {Object.entries(selectedBlock.allowedProps).map(([key, value]) => (
-                        <div key={key} className="flex flex-col">
-                            <span className="font-semibold">{key}</span>
-                            <select
-                                value={selectedBlock.props[key] as string}
-                                onChange={(e) =>
-                                    replaceSelectedBlock({
-                                        ...selectedBlock,
-                                        props: {
-                                            ...selectedBlock.props,
-                                            [key]: e.target.value,
-                                        },
-                                    })
-                                }
-                            >
-                                {value.values.map((value) => (
-                                    <option key={value} value={value}>
-                                        {value}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    ))}
                 </div>
             )}
         </div>

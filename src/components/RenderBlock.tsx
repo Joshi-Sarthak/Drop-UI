@@ -1,9 +1,8 @@
 // import {Nodebox} from "@codesandbox/nodebox"
 // import {useEffect, useState} from "react"
 
-import JsxParser from "react-jsx-parser"
+import parse from "html-react-parser"
 import {Block} from "./block"
-import {Button} from "./ui/button"
 
 // const runtime = new Nodebox({
 //     iframe: document.getElementById("nodebox-iframe") as HTMLIFrameElement,
@@ -67,16 +66,6 @@ export interface RenderBlockProps {
 }
 
 export default function RenderBlock({block}: RenderBlockProps) {
-    return (
-        // @ts-ignore
-        <JsxParser
-            autoCloseVoidElements
-            jsx={block.jsx}
-            bindings={block.props}
-            components={{
-                Button,
-            }}
-            renderInWrapper={false}
-        />
-    )
+    const html = parse(block.html)
+    return html
 }

@@ -1,8 +1,8 @@
-import {ChevronDown, ChevronRight, Send} from "lucide-react"
+import {ChevronDown, ChevronRight} from "lucide-react"
 import {useState} from "react"
+import {BsStars} from "react-icons/bs"
 import PaletteItem from "./PaletteComponent"
 import {Block} from "./block"
-import {BsStars} from "react-icons/bs"
 
 export default function Palette() {
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({})
@@ -11,9 +11,13 @@ export default function Palette() {
     const [items, setItems] = useState<Block[]>([
         {
             type: "Buttons",
-            jsx: "<Button variant={variant}>Sample shadcn/ui button</Button>",
-            props: {variant: "secondary"},
-            allowedProps: {variant: {type: "string", values: ["default", "secondary"]}},
+            html: `
+<button class="cursor-pointer transition-all bg-blue-500 text-white px-6 py-2 rounded-lg
+border-blue-600
+border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
+active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
+  Button
+</button>`,
         },
     ])
 
@@ -50,10 +54,7 @@ export default function Palette() {
             setMessage("")
             console.log(data.html)
 
-            setItems((prev) => [
-                ...prev,
-                {type: "AI Generated", jsx: data.html, props: {}, allowedProps: {}},
-            ])
+            setItems((prev) => [...prev, {type: "AI Generated", html: data.html}])
         } catch (error) {
             console.error("Failed to generate AI component:", error)
         } finally {

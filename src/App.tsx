@@ -3,12 +3,12 @@ import {Route, BrowserRouter as Router, Routes} from "react-router-dom"
 import Editor from "./components/Editor"
 import Footer from "./components/Footer"
 import LandingPage from "./components/LandingPage"
+import Login from "./components/Login"
 import NavBar from "./components/NavBar"
 import Palette from "./components/Palette"
 import Preview from "./components/Preview" // Import Preview Page
-import Login from "./components/Login"
-import SignUp from "./components/Signup"
 import PrivateRoute from "./components/PrivateRoute"
+import SignUp from "./components/Signup"
 
 export default function App() {
     return (
@@ -17,15 +17,15 @@ export default function App() {
             <Routes>
                 {/* Main Editor Page */}
                 <Route path="/" element={<LandingPage />} />
-                <Route path= "/login" element={<Login/>}/>
-                <Route path= "/signup" element={<SignUp/>}/>
-                
-                <Route path= "/preview" element={<PrivateRoute />}></Route>
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+
+                <Route path="/preview" element={<PrivateRoute />}></Route>
                 <Route
                     path="/editor"
                     element={
                         <>
-                            {<PrivateRoute />}
+                            {/* {<PrivateRoute />} */}
                             <div className="flex h-screen">
                                 <div className="w-1/5 bg-neutral-100 rounded-2xl border border-neutral-200 flex-shrink-0">
                                     <Palette />

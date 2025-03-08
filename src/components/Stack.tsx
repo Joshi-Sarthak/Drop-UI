@@ -1,3 +1,4 @@
+import {cn} from "@/lib/utils"
 import useStore from "@/store"
 import {
     attachClosestEdge,
@@ -8,6 +9,7 @@ import {DropIndicator} from "@atlaskit/pragmatic-drag-and-drop-react-drop-indica
 import {dropTargetForElements} from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
 import {useEffect, useRef, useState} from "react"
 import {Block} from "./block"
+import BlockEditor from "./BlockEditor"
 import RenderBlock from "./RenderBlock"
 
 function StackItem({
@@ -25,9 +27,12 @@ function StackItem({
     const selection = useStore((store) => store.project.selection)
     const stopSelecting = useStore((store) => store.project.stopSelecting)
     const setSelection = useStore((store) => store.project.setSelection)
+    const isEditing = useStore((store) => store.project.isEditing)
     const ref = useRef<HTMLDivElement>(null)
     const [isDraggedOver, setIsDraggedOver] = useState(false)
     const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
+    const isThisSelected =
+        selection && section === selection.stack && index === selection.index
     useEffect(() => {
         if (!ref.current) return
         return dropTargetForElements({
@@ -87,22 +92,26 @@ function StackItem({
         <>
             <div
                 ref={ref}
-                className={`relative flex-grow flex flex-col ${isDraggedOver && "opacity-50"} ${
+                className={cn(
+                    "relative flex-grow flex flex-col",
+                    isDraggedOver && "opacity-50",
                     isSelecting &&
-                    "hover:outline-2 hover:outline-blue-400 hover:opacity-50"
-                } ${
-                    selection &&
-                    section === selection.stack &&
-                    index === selection.index &&
-                    "outline-2 outline-blue-400 opacity-50"
-                }`}
+                        !isThisSelected &&
+                        "hover:outline-2 hover:outline-blue-400 hover:opacity-50",
+                    isThisSelected &&
+                        !isEditing &&
+                        "outline-2 outline-blue-400 opacity-50",
+                    isThisSelected && isEditing && "outline-2 outline-blue-400",
+                )}
                 onClick={() => {
-                    if (isSelecting) {
+                    if (isSelecting && !isThisSelected) {
                         setSelection(section, index)
                     }
                 }}
             >
-                <RenderBlock block={children} />
+                {isThisSelected && isEditing ?
+                    <BlockEditor block={children} />
+                :   <RenderBlock block={children} />}
                 {closestEdge && <DropIndicator edge={closestEdge} />}
             </div>
         </>
