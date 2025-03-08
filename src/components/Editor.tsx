@@ -1,5 +1,5 @@
 import useStore from "@/store"
-import {Edit, SquareMousePointer, Trash} from "lucide-react"
+import {Edit, Save, SquareMousePointer, Trash, Upload} from "lucide-react"
 import {useLayoutEffect, useRef} from "react"
 import {Block} from "./block"
 import Project from "./Project"
@@ -8,6 +8,8 @@ import {Button} from "./ui/button"
 
 export default function Editor() {
     const ref = useRef<HTMLDivElement>(null)
+    const project = useStore((store) => store.project)
+    const setProject = useStore((store) => store.setProject)
     const isSelecting = useStore((store) => store.project.isSelecting)
     const startSelecting = useStore((store) => store.project.startSelecting)
     const stopSelecting = useStore((store) => store.project.stopSelecting)
@@ -82,6 +84,34 @@ export default function Editor() {
             document.body.removeEventListener("mouseup", stopSelection)
         }
     }, [stopSelecting])
+    function onSave() {
+        const text = JSON.stringify(project)
+        const blob = new Blob([text], {type: "text/plain"})
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement("a")
+        a.href = url
+        a.download = "project.json"
+        a.click()
+        URL.revokeObjectURL(url)
+        a.remove()
+    }
+    function onLoad() {
+        const input = document.createElement("input")
+        input.type = "file"
+        input.accept = "application/json"
+        input.addEventListener("change", () => {
+            const file = input.files![0]
+            const reader = new FileReader()
+            reader.onload = () => {
+                const text = reader.result as string
+                const project = JSON.parse(text)
+                setProject(project)
+            }
+            reader.readAsText(file)
+        })
+        input.click()
+        input.remove()
+    }
     return (
         <div ref={ref} className="flex flex-row h-full w-full">
             <div className="flex flex-col p-2 gap-2 w-10/12 border border-neutral-200 rounded-2xl">
@@ -120,6 +150,12 @@ export default function Editor() {
                         }}
                     >
                         <Edit />
+                    </Button>
+                    <Button size="icon" variant="ghost" onClick={onSave}>
+                        <Save />
+                    </Button>
+                    <Button size="icon" variant="ghost" onClick={onLoad}>
+                        <Upload />
                     </Button>
                 </div>
                 <div className="w-full h-full">

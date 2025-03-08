@@ -27,9 +27,17 @@ export interface Store {
             index: number,
         ) => void
     }
+    setProject: (project: Store["project"]) => void
 }
 
 const useStore = create<Store>()((set) => ({
+    setProject: (project) =>
+        set((store) => ({
+            project: {
+                ...store.project,
+                ...project,
+            },
+        })),
     project: {
         editingBlock: undefined,
         setEditingBlock: (block) =>
