@@ -76,6 +76,7 @@ export default function RenderBlock({block}: RenderBlockProps) {
             components={{
                 Button,
             }}
+            renderInWrapper={false}
         />
     )
 }

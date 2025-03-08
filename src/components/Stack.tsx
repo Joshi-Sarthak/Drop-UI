@@ -98,9 +98,7 @@ function StackItem({
                         placement="top"
                     >
                         <PopoverTrigger>
-                            <div>
-                                <RenderBlock block={children} />
-                            </div>
+                            <RenderBlock block={children} />
                         </PopoverTrigger>
                         <PopoverContent>
                             <div className="flex bg-white rounded border shadow-xl">
