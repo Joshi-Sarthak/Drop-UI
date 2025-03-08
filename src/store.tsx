@@ -3,6 +3,8 @@ import {Block} from "./components/block"
 
 export interface Store {
     project: {
+        editingBlock?: Block
+        setEditingBlock: (block: Block) => void
         headerStack: Block[]
         leftStack: Block[]
         rightStack: Block[]
@@ -18,6 +20,8 @@ export interface Store {
             stack: "header" | "footer" | "left" | "right"
             index: number
         }
+        isEditing: boolean
+        setIsEditing: (isEditing: boolean) => void
         setSelection: (
             stack: "header" | "footer" | "left" | "right",
             index: number,
@@ -27,6 +31,22 @@ export interface Store {
 
 const useStore = create<Store>()((set) => ({
     project: {
+        editingBlock: undefined,
+        setEditingBlock: (block) =>
+            set((store) => ({
+                project: {
+                    ...store.project,
+                    editingBlock: block,
+                },
+            })),
+        isEditing: false,
+        setIsEditing: (isEditing) =>
+            set((store) => ({
+                project: {
+                    ...store.project,
+                    isEditing,
+                },
+            })),
         headerStack: [],
         leftStack: [],
         rightStack: [],
@@ -73,6 +93,7 @@ const useStore = create<Store>()((set) => ({
                     ...store.project,
                     selection: undefined,
                     isSelecting: false,
+                    isEditing: false,
                 },
             })),
         selection: undefined,
@@ -84,6 +105,7 @@ const useStore = create<Store>()((set) => ({
                         stack,
                         index,
                     },
+                    isEditing: false,
                 },
             })),
     },
