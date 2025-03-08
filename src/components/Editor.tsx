@@ -115,6 +115,7 @@ export default function Editor() {
                             setIsEditing(!isEditing)
                             if (isEditing && editingBlock) {
                                 replaceSelection(editingBlock)
+                                stopSelecting()
                             }
                         }}
                     >
