@@ -22,12 +22,19 @@ export default function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
 
-                <Route path="/preview" element={<><Preview/></>}></Route>
+                <Route
+                    path="/preview"
+                    element={
+                        <>
+                            <Preview />
+                        </>
+                    }
+                ></Route>
                 <Route
                     path="/editor"
                     element={
                         <>
-                            {/* {<PrivateRoute />} */}
+                            {<PrivateRoute />}
                             <div className="flex h-screen">
                                 <div className="w-1/5 bg-neutral-100 rounded-2xl border border-neutral-200 flex-shrink-0">
                                     <Palette />
