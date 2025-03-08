@@ -9,8 +9,9 @@ export default function Palette() {
     const [items, setItems] = useState<Block[]>([
         {
             type: "Buttons",
-            jsx: "<Button>Sample shadcn/ui button</Button>",
-            props: {},
+            jsx: "<Button variant={variant}>Sample shadcn/ui button</Button>",
+            props: {variant: "secondary"},
+            allowedProps: {variant: {type: "string", values: ["default", "secondary"]}},
         },
     ])
 
@@ -45,7 +46,10 @@ export default function Palette() {
         console.log(data.html)
 
         // Add the new AI-generated component
-        setItems((prev) => [...prev, {type: "AI Generated", jsx: data.html, props: {}}])
+        setItems((prev) => [
+            ...prev,
+            {type: "AI Generated", jsx: data.html, props: {}, allowedProps: {}},
+        ])
     }
 
     return (

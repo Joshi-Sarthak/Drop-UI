@@ -2,6 +2,7 @@ import useStore from "@/store"
 import {Edit, SquareMousePointer, Trash} from "lucide-react"
 import {useLayoutEffect, useRef} from "react"
 import Project from "./Project"
+import RightPanel from "./RightPanel"
 import {Button} from "./ui/button"
 
 export default function Editor() {
@@ -78,8 +79,13 @@ export default function Editor() {
                     <Edit />
                 </Button>
             </div>
-            <div className="flex flex-col h-full">
-                <Project />
+            <div className="flex h-full">
+                <div className="flex-1">
+                    <Project />
+                </div>
+                <div className="w-1/5 bg-gray-100 flex-shrink-0">
+                    <RightPanel />
+                </div>
             </div>
         </div>
     )
