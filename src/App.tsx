@@ -20,7 +20,7 @@ export default function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
 
-                <Route path="/preview" element={<PrivateRoute />}></Route>
+                <Route path="/preview" element={<><Preview/></>}></Route>
                 <Route
                     path="/editor"
                     element={
