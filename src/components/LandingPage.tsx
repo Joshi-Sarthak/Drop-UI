@@ -47,7 +47,7 @@ export default function LandingPage() {
                             </div>
                             <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
                                 <Link
-                                    to="/editor"
+                                    to="/login"
                                     className="inline-flex h-12 items-center justify-center rounded-full bg-neutral-100 px-10 text-base font-semibold text-black shadow-lg transition-all duration-200 hover:bg-neutral-800 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                                 >
                                     Get started with Drop UI

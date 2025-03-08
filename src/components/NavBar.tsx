@@ -36,7 +36,7 @@ export default function NavBar() {
                             ></path>
                         </svg>
                     </button>
-                : location.pathname === "/" ?
+                : location.pathname === "/" || location.pathname === "/login" || location.pathname === "/signup" ?
                     <></>
                 :   <button
                         onClick={() => navigate("/editor")}
@@ -55,6 +55,7 @@ export default function NavBar() {
                         Back
                     </button>
                 }
+                
             </div>
         </nav>
     )
