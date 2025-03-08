@@ -231,11 +231,14 @@ export default function Editor() {
                                                         size="icon"
                                                         variant="ghost"
                                                         onClick={() => {
-                                                            setProject(
-                                                                JSON.parse(
+                                                            const history =
+                                                                project.revisions
+                                                            setProject({
+                                                                ...JSON.parse(
                                                                     revision.project,
                                                                 ),
-                                                            )
+                                                                revisions: history,
+                                                            })
                                                         }}
                                                     >
                                                         <Check />
