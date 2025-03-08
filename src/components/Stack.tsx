@@ -12,11 +12,10 @@ import {
     PopoverTrigger,
     useDisclosure,
 } from "@heroui/react"
-import {LightningBoltIcon, Pencil1Icon, TrashIcon} from "@radix-ui/react-icons"
+import {LightningBoltIcon, TrashIcon} from "@radix-ui/react-icons"
 import {useEffect, useRef, useState} from "react"
-import {StaticComponent} from "../store"
-import Component from "./Component"
-import ComponentEditor from "./ComponentEditor"
+import {Block} from "./block"
+import RenderBlock from "./RenderBlock"
 
 function StackItem({
     index,
@@ -24,7 +23,7 @@ function StackItem({
     props,
 }: {
     index: number
-    children: StaticComponent
+    children: Block
     props: StackProps
 }) {
     const ref = useRef<HTMLDivElement>(null)
@@ -85,8 +84,6 @@ function StackItem({
             },
         })
     }, [index, props])
-    // TODO: Prevent drag-and-drop when editing
-    const [isEditing, setIsEditing] = useState(false)
     const disclosure = useDisclosure()
     return (
         <>
@@ -94,38 +91,19 @@ function StackItem({
                 ref={ref}
                 className={`relative flex-grow flex flex-col ${isDraggedOver && "opacity-50"}`}
             >
-                {isEditing ?
-                    <ComponentEditor
-                        {...children}
-                        onEditingDone={(title, code) => {
-                            setIsEditing(false)
-                            props.setComponents(
-                                props.components.map((component, i) =>
-                                    i === index ? {title, code} : component,
-                                ),
-                            )
-                        }}
-                    />
-                :   <Popover
+                {
+                    <Popover
                         isOpen={disclosure.isOpen}
                         onOpenChange={disclosure.onOpenChange}
                         placement="top"
                     >
                         <PopoverTrigger>
                             <div>
-                                <Component {...children} />
+                                <RenderBlock block={children} />
                             </div>
                         </PopoverTrigger>
                         <PopoverContent>
                             <div className="flex bg-white rounded border shadow-xl">
-                                <Button
-                                    isIconOnly
-                                    onPress={() => {
-                                        setIsEditing(true)
-                                    }}
-                                >
-                                    <Pencil1Icon />
-                                </Button>
                                 <Button isIconOnly>
                                     <LightningBoltIcon />
                                 </Button>
@@ -184,8 +162,8 @@ function EmptyStack({props}: {props: StackProps}) {
 
 export interface StackProps {
     direction: "horizontal" | "vertical"
-    components: StaticComponent[]
-    setComponents: (components: StaticComponent[]) => void
+    components: Block[]
+    setComponents: (components: Block[]) => void
 }
 
 export default function Stack(props: StackProps) {

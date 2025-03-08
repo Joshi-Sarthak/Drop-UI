@@ -1,20 +1,16 @@
 import {create} from "zustand"
-
-export interface StaticComponent {
-    title: string
-    code: string
-}
+import {Block} from "./components/block"
 
 export interface Store {
     project: {
-        headerStack: StaticComponent[]
-        leftStack: StaticComponent[]
-        rightStack: StaticComponent[]
-        footerStack: StaticComponent[]
-        setHeaderStack: (stack: StaticComponent[]) => void
-        setLeftStack: (stack: StaticComponent[]) => void
-        setRightStack: (stack: StaticComponent[]) => void
-        setFooterStack: (stack: StaticComponent[]) => void
+        headerStack: Block[]
+        leftStack: Block[]
+        rightStack: Block[]
+        footerStack: Block[]
+        setHeaderStack: (stack: Block[]) => void
+        setLeftStack: (stack: Block[]) => void
+        setRightStack: (stack: Block[]) => void
+        setFooterStack: (stack: Block[]) => void
     }
 }
 

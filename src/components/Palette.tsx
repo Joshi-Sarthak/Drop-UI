@@ -1,49 +1,20 @@
-import {useState} from "react"
-import PaletteComponent from "./PaletteComponent"
-import Button1 from "../library/Buttons/Button1"
-import Form1 from "../library/Forms/Form1"
-import Form2 from "../library/Forms/Form2"
 import {ChevronDown, ChevronRight, Send} from "lucide-react"
-import Navbar1 from "../library/Navbars/Navbar1"
-import Navbar2 from "../library/Navbars/Navbar2"
-import Input1 from "../library/Inputs/Input1"
-import Input2 from "../library/Inputs/Input2"
-import Input3 from "../library/Inputs/Input3"
-import Input4 from "../library/Inputs/Input4"
-import Footer1 from "../library/Footers/Footer1"
-import Footer2 from "../library/Footers/Footer2"
-import Button2 from "../library/Buttons/Button2"
-import Button3 from "../library/Buttons/Button3"
-import Button4 from "../library/Buttons/Button4"
-
-type Component = {
-    title: string
-    type: string
-    code: any
-}
+import {useState} from "react"
+import PaletteItem from "./PaletteComponent"
+import {Block} from "./block"
 
 export default function Palette() {
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({})
     const [message, setMessage] = useState("")
-    const [code, setCode] = useState<string[]>([])
-    const [components, setComponents] = useState<Component[]>([
-        {title: "Button 1", type: "Buttons", code: Button1},
-        {title: "Button 2", type: "Buttons", code: Button2},
-        {title: "Button 3", type: "Buttons", code: Button3},
-        {title: "Button 4", type: "Buttons", code: Button4},
-        {title: "Form 1", type: "Forms", code: Form1},
-        {title: "Form 2", type: "Forms", code: Form2},
-        {title: "Navbar 1", type: "Navbars", code: Navbar1},
-        {title: "Navbar 2", type: "Navbars", code: Navbar2},
-        {title: "Input 1", type: "Inputs", code: Input1},
-        {title: "Input 2", type: "Inputs", code: Input2},
-        {title: "Input 3", type: "Inputs", code: Input3},
-        {title: "Input 4", type: "Inputs", code: Input4},
-        {title: "Footer1", type: "Footers", code: Footer1},
-        {title: "Footer2", type: "Footers", code: Footer2},
+    const [items, setItems] = useState<Block[]>([
+        {
+            type: "Buttons",
+            jsx: "<Button>Sample shadcn/ui button</Button>",
+            props: {},
+        },
     ])
 
-    const groupedComponents = components.reduce(
+    const groupedComponents = items.reduce(
         (acc, component) => {
             if (!acc[component.type]) {
                 acc[component.type] = []
@@ -51,7 +22,7 @@ export default function Palette() {
             acc[component.type].push(component)
             return acc
         },
-        {} as Record<string, Component[]>,
+        {} as Record<string, Block[]>,
     )
 
     const toggleSection = (type: string) => {
@@ -74,10 +45,7 @@ export default function Palette() {
         console.log(data.html)
 
         // Add the new AI-generated component
-        setComponents((prev) => [
-            ...prev,
-            {title: "Generated Component", type: "AI Generated", code: data.html},
-        ])
+        setItems((prev) => [...prev, {type: "AI Generated", jsx: data.html, props: {}}])
     }
 
     return (
@@ -95,8 +63,8 @@ export default function Palette() {
                     </button>
                     {openSections[type] && (
                         <div className="mt-2 flex flex-col gap-2 pl-4">
-                            {items.map((component, i) => (
-                                <PaletteComponent key={i} {...component} />
+                            {items.map((block, i) => (
+                                <PaletteItem key={i} block={block} />
                             ))}
                         </div>
                     )}

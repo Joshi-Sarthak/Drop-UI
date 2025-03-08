@@ -1,5 +1,5 @@
 import useStore from "../store"
-import Component from "./Component"
+import RenderBlock from "./RenderBlock"
 
 export default function Preview() {
     const {headerStack, leftStack, rightStack, footerStack} = useStore(
@@ -24,8 +24,8 @@ export default function Preview() {
                         {/* Header Stack */}
                         {headerStack.length > 0 && (
                             <div className="w-full">
-                                {headerStack.map((comp, index) => (
-                                    <Component key={index} {...comp} />
+                                {headerStack.map((block, index) => (
+                                    <RenderBlock key={index} block={block} />
                                 ))}
                             </div>
                         )}
@@ -35,8 +35,8 @@ export default function Preview() {
                             {/* Left Stack */}
                             <div className="w-1/2 p-4 min-h-[300px]">
                                 {leftStack.length > 0 ?
-                                    leftStack.map((comp, index) => (
-                                        <Component key={index} {...comp} />
+                                    leftStack.map((block, index) => (
+                                        <RenderBlock key={index} block={block} />
                                     ))
                                 :   <p className="text-gray-500">
                                         Drop any component here
@@ -47,8 +47,8 @@ export default function Preview() {
                             {/* Right Stack */}
                             <div className="w-1/2 p-4 min-h-[300px]">
                                 {rightStack.length > 0 ?
-                                    rightStack.map((comp, index) => (
-                                        <Component key={index} {...comp} />
+                                    rightStack.map((block, index) => (
+                                        <RenderBlock key={index} block={block} />
                                     ))
                                 :   <p className="text-gray-500">
                                         Drop any component here
@@ -60,8 +60,8 @@ export default function Preview() {
                         {/* Footer Stack */}
                         {footerStack.length > 0 && (
                             <div className="w-full p-4">
-                                {footerStack.map((comp, index) => (
-                                    <Component key={index} {...comp} />
+                                {footerStack.map((block, index) => (
+                                    <RenderBlock key={index} block={block} />
                                 ))}
                             </div>
                         )}
