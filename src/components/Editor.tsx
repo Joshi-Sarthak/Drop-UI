@@ -3,6 +3,7 @@ import {Edit, SquareMousePointer, Trash} from "lucide-react"
 import {useLayoutEffect, useRef} from "react"
 import Project from "./Project"
 import RightPanel from "./RightPanel"
+import ThemeProvider from "./ThemeProvider"
 import {Button} from "./ui/button"
 
 export default function Editor() {
@@ -80,9 +81,9 @@ export default function Editor() {
                         <Edit />
                     </Button>
                 </div>
-                <div className="w-full h-full">
+                <ThemeProvider className="w-full h-full">
                     <Project />
-                </div>
+                </ThemeProvider>
             </div>
             <div className="flex flex-row h-full w-4/12">
                 <div className="h-full w-full">

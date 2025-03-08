@@ -1,8 +1,8 @@
-import {ChevronDown, ChevronRight, Send} from "lucide-react"
+import {ChevronDown, ChevronRight} from "lucide-react"
 import {useState} from "react"
+import {BsStars} from "react-icons/bs"
 import PaletteItem from "./PaletteComponent"
 import {Block} from "./block"
-import {BsStars} from "react-icons/bs"
 
 export default function Palette() {
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({})
@@ -12,7 +12,7 @@ export default function Palette() {
         {
             type: "Buttons",
             jsx: "<Button variant={variant}>Sample shadcn/ui button</Button>",
-            props: {variant: "secondary"},
+            props: {variant: "default"},
             allowedProps: {variant: {type: "string", values: ["default", "secondary"]}},
         },
     ])
