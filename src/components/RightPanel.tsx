@@ -94,7 +94,7 @@ export default function RightPanel() {
     }
 
     return (
-        <div className="flex flex-col h-full w-full bg-neutral-100 p-4 rounded-xl shadow-md">
+        <div className="flex flex-col h-full w-full bg-neutral-100 p-4 rounded-xl shadow-lg border border-neutral-200 border-r-0 rounded-r-none">
             <h2 className="ml-2 font-semibold">Ask AI For Suggestions</h2>
 
             <div className="flex items-center gap-2 p-2 border-neutral-300">

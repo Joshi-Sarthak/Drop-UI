@@ -53,7 +53,7 @@ export default function Palette() {
     }
 
     return (
-        <div className="flex flex-col p-2 gap-2 max-h-[45rem] overflow-y-auto overflow-x-hidden border rounded-lg shadow-md">
+        <div className="flex flex-col p-2 gap-2 max-h-[45rem] overflow-y-auto overflow-x-hidden rounded-xl">
             {Object.entries(groupedComponents).map(([type, items]) => (
                 <div key={type} className="border-b p-2">
                     <button
