@@ -6,7 +6,7 @@ import ProjectRightContent from "./ProjectRightContent"
 
 export default function Project() {
     return (
-        <div className="h-full flex flex-col bg-white">
+        <div className="h-full flex flex-col">
             <ProjectHeader />
             <div className="flex flex-col flex-[1_1_auto] ">
                 <Allotment>

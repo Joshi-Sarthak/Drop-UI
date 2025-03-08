@@ -2,7 +2,7 @@ import favicon from "../../public/favicon.svg"
 
 export default function Footer() {
     return (
-        <footer className="bg-neutral-200 px-6 py-4">
+        <footer className="backdrop-blur-lg px-6 py-4">
             <div className="max-w-7xl mx-auto flex flex-col items-center space-y-4">
                 <div className="flex items-center space-x-2">
                     <span className="flex items-center justify-center w-8 h-8 rounded-md bg-neutral-400">

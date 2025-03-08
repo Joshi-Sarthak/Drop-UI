@@ -52,38 +52,40 @@ export default function Editor() {
         }
     }, [stopSelecting])
     return (
-        <div ref={ref} className="flex flex-col h-full">
-            <div className="flex p-2 gap-2">
-                <Button
-                    size="icon"
-                    variant={isSelecting ? "default" : "ghost"}
-                    onClick={() => {
-                        if (isSelecting) {
-                            stopSelecting()
-                        } else {
-                            startSelecting()
-                        }
-                    }}
-                >
-                    <SquareMousePointer />
-                </Button>
-                <Button
-                    size="icon"
-                    variant="ghost"
-                    disabled={!isSelecting}
-                    onClick={deleteSelection}
-                >
-                    <Trash />
-                </Button>
-                <Button size="icon" variant="ghost" disabled={!isSelecting}>
-                    <Edit />
-                </Button>
-            </div>
-            <div className="flex h-full">
-                <div className="flex-1">
+        <div ref={ref} className="flex flex-row h-full w-full">
+            <div className="flex flex-col p-2 gap-2 w-10/12 border border-neutral-200 rounded-2xl">
+                <div>
+                    <Button
+                        size="icon"
+                        variant={isSelecting ? "default" : "ghost"}
+                        onClick={() => {
+                            if (isSelecting) {
+                                stopSelecting()
+                            } else {
+                                startSelecting()
+                            }
+                        }}
+                    >
+                        <SquareMousePointer />
+                    </Button>
+                    <Button
+                        size="icon"
+                        variant="ghost"
+                        disabled={!isSelecting}
+                        onClick={deleteSelection}
+                    >
+                        <Trash />
+                    </Button>
+                    <Button size="icon" variant="ghost" disabled={!isSelecting}>
+                        <Edit />
+                    </Button>
+                </div>
+                <div className="w-full h-full">
                     <Project />
                 </div>
-                <div className="w-1/5 bg-gray-100 flex-shrink-0">
+            </div>
+            <div className="flex flex-row h-full w-4/12">
+                <div className="h-full w-full">
                     <RightPanel />
                 </div>
             </div>

@@ -27,10 +27,10 @@ export default function App() {
                         <>
                             {<PrivateRoute />}
                             <div className="flex h-screen">
-                                <div className="w-1/5 bg-gray-100 flex-shrink-0">
+                                <div className="w-1/5 bg-neutral-100 rounded-2xl border border-neutral-200 flex-shrink-0">
                                     <Palette />
                                 </div>
-                                <div className="flex-1">
+                                <div className="w-4/5">
                                     <Editor />
                                 </div>
                             </div>
