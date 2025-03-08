@@ -1,11 +1,11 @@
 import useStore from "@/store"
 import {Edit, Save, SquareMousePointer, Trash, Upload} from "lucide-react"
 import {useLayoutEffect, useRef} from "react"
+import {Link} from "react-router-dom"
 import {Block} from "./block"
 import Project from "./Project"
 import RightPanel from "./RightPanel"
 import {Button} from "./ui/button"
-import {Link} from "react-router-dom"
 
 export default function Editor() {
     const ref = useRef<HTMLDivElement>(null)

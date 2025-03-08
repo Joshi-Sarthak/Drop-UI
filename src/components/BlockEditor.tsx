@@ -1,5 +1,5 @@
 import useStore from "@/store"
-import {useRef} from "react"
+import {useEffect, useRef} from "react"
 import {Block} from "./block"
 
 export interface BlockEditorProps {
@@ -10,6 +10,11 @@ export default function BlockEditor({block}: BlockEditorProps) {
     const ref = useRef<HTMLDivElement>(null)
     const editingBlock = useStore((store) => store.project.editingBlock)
     const setEditingBlock = useStore((store) => store.project.setEditingBlock)
+    useEffect(() => {
+        if (!editingBlock) {
+            setEditingBlock(block)
+        }
+    }, [block, editingBlock, setEditingBlock])
     return (
         <div
             ref={ref}
