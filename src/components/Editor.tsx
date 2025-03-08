@@ -1,11 +1,28 @@
 import useStore from "@/store"
-import {Edit, Save, SquareMousePointer, Trash, Upload} from "lucide-react"
-import {useLayoutEffect, useRef} from "react"
+import {
+    Check,
+    Edit,
+    History,
+    Save,
+    SquareMousePointer,
+    Trash,
+    Upload,
+} from "lucide-react"
+import {useEffect, useLayoutEffect, useRef} from "react"
 import {Link} from "react-router-dom"
+import {toast} from "sonner"
 import {Block} from "./block"
 import Project from "./Project"
 import RightPanel from "./RightPanel"
 import {Button} from "./ui/button"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "./ui/dialog"
 
 export default function Editor() {
     const ref = useRef<HTMLDivElement>(null)
@@ -85,6 +102,30 @@ export default function Editor() {
             document.body.removeEventListener("mouseup", stopSelection)
         }
     }, [stopSelecting])
+    useEffect(() => {
+        function onKeyup(ev: KeyboardEvent) {
+            if (ev.key === "Escape") {
+                stopSelecting()
+            }
+            //ctrl+s
+            if (ev.ctrlKey && ev.key === "s") {
+                ev.stopImmediatePropagation()
+                ev.preventDefault()
+                project.setRevisions([
+                    {
+                        project: JSON.stringify(project),
+                        date: new Date().toLocaleString(),
+                    },
+                    ...project.revisions,
+                ])
+                toast.success("Saved 🎉")
+            }
+        }
+        window.addEventListener("keydown", onKeyup)
+        return () => {
+            window.removeEventListener("keydown", onKeyup)
+        }
+    })
     function onSave() {
         const text = JSON.stringify(project)
         const blob = new Blob([text], {type: "text/plain"})
@@ -113,6 +154,7 @@ export default function Editor() {
         input.click()
         input.remove()
     }
+    function onListRevisions() {}
     return (
         <div ref={ref} className="flex flex-row h-full w-full">
             <div className="flex flex-col p-2 gap-2 w-10/12 border border-neutral-200 rounded-2xl">
@@ -160,6 +202,65 @@ export default function Editor() {
                         <Button size="icon" variant="ghost" onClick={onLoad}>
                             <Upload />
                         </Button>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button
+                                    size="icon"
+                                    variant="ghost"
+                                    onClick={onListRevisions}
+                                >
+                                    <History />
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Revisions</DialogTitle>
+                                    <DialogDescription>
+                                        Pick a revision to go back to.
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div className="grid gap-4 py-4">
+                                    {project.revisions.map((revision) => (
+                                        <div>
+                                            <div className="flex items-center justify-between">
+                                                <div className="text-sm font-semibold">
+                                                    {revision.date}
+                                                </div>
+                                                <div className="text-sm font-semibold">
+                                                    <Button
+                                                        size="icon"
+                                                        variant="ghost"
+                                                        onClick={() => {
+                                                            setProject(
+                                                                JSON.parse(
+                                                                    revision.project,
+                                                                ),
+                                                            )
+                                                        }}
+                                                    >
+                                                        <Check />
+                                                    </Button>
+                                                    <Button
+                                                        size="icon"
+                                                        variant="ghost"
+                                                        onClick={() => {
+                                                            project.setRevisions(
+                                                                project.revisions.filter(
+                                                                    (r) =>
+                                                                        r !== revision,
+                                                                ),
+                                                            )
+                                                        }}
+                                                    >
+                                                        <Trash />
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </DialogContent>
+                        </Dialog>
                     </div>
                     <Link to="/preview">
                         <div className="mr-4 text-sm font-semibold transition-all duration-200 hover:underline">
