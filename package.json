@@ -45,6 +45,7 @@
         "@radix-ui/react-tooltip": "^1.1.8",
         "@tailwindcss/vite": "^4.0.12",
         "allotment": "^1.20.3",
+        "alphabyte2025": ".",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "cmdk": "1.0.0",
