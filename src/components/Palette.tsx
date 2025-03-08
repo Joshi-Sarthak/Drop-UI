@@ -52,9 +52,10 @@ active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
             })
             const data = await res.json()
             setMessage("")
-            console.log(data.html)
-
-            setItems((prev) => [...prev, {type: "AI Generated", html: data.html}])
+            setItems((prev) => [
+                ...prev,
+                {type: "AI Generated", html: data.jsx ?? data.html},
+            ])
         } catch (error) {
             console.error("Failed to generate AI component:", error)
         } finally {
