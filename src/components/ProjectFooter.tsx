@@ -7,6 +7,7 @@ export default function ProjectFooterContent() {
     return (
         <div className="flex-[0_1_auto]">
             <Stack
+                section="footer"
                 direction="vertical"
                 components={footerStack}
                 setComponents={setFooterStack}

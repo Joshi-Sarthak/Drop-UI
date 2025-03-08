@@ -7,6 +7,7 @@ export default function ProjectHeader() {
     return (
         <div className="flex-[0_1_auto]">
             <Stack
+                section="header"
                 direction="horizontal"
                 components={headerStack}
                 setComponents={setHeaderStack}
