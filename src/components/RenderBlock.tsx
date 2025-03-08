@@ -4,6 +4,9 @@
 import JsxParser from "react-jsx-parser"
 import {Block} from "./block"
 import {Button} from "./ui/button"
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "./ui/card"
+import {Input} from "./ui/input"
+import {Label} from "./ui/label"
 
 // const runtime = new Nodebox({
 //     iframe: document.getElementById("nodebox-iframe") as HTMLIFrameElement,
@@ -75,6 +78,13 @@ export default function RenderBlock({block}: RenderBlockProps) {
             bindings={block.props}
             components={{
                 Button,
+                Card,
+                CardHeader,
+                CardTitle,
+                CardDescription,
+                CardContent,
+                Input,
+                Label,
             }}
             renderInWrapper={false}
         />

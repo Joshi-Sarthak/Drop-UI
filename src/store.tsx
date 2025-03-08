@@ -1,3 +1,4 @@
+import {produce} from "immer"
 import {create} from "zustand"
 import {Block} from "./components/block"
 
@@ -32,60 +33,50 @@ const useStore = create<Store>()((set) => ({
         rightStack: [],
         footerStack: [],
         setHeaderStack: (stack) =>
-            set((store) => ({
-                project: {
-                    ...store.project,
-                    headerStack: stack,
-                },
-            })),
+            set(
+                produce((state) => {
+                    state.project.headerStack = stack
+                }),
+            ),
         setLeftStack: (stack) =>
-            set((store) => ({
-                project: {
-                    ...store.project,
-                    leftStack: stack,
-                },
-            })),
+            set(
+                produce((state) => {
+                    state.project.leftStack = stack
+                }),
+            ),
         setRightStack: (stack) =>
-            set((store) => ({
-                project: {
-                    ...store.project,
-                    rightStack: stack,
-                },
-            })),
+            set(
+                produce((state) => {
+                    state.project.rightStack = stack
+                }),
+            ),
         setFooterStack: (stack) =>
-            set((store) => ({
-                project: {
-                    ...store.project,
-                    footerStack: stack,
-                },
-            })),
+            set(
+                produce((state) => {
+                    state.project.footerStack = stack
+                }),
+            ),
         isSelecting: false,
         startSelecting: () =>
-            set((store) => ({
-                project: {
-                    ...store.project,
-                    isSelecting: true,
-                },
-            })),
+            set(
+                produce((state) => {
+                    state.project.isSelecting = true
+                }),
+            ),
         stopSelecting: () =>
-            set((store) => ({
-                project: {
-                    ...store.project,
-                    selection: undefined,
-                    isSelecting: false,
-                },
-            })),
+            set(
+                produce((state) => {
+                    state.project.isSelecting = false
+                    state.project.selection = undefined
+                }),
+            ),
         selection: undefined,
         setSelection: (stack, index) =>
-            set((store) => ({
-                project: {
-                    ...store.project,
-                    selection: {
-                        stack,
-                        index,
-                    },
-                },
-            })),
+            set(
+                produce((state) => {
+                    state.project.selection = {stack, index}
+                }),
+            ),
     },
 }))
 

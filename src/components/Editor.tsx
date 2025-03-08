@@ -3,6 +3,8 @@ import {Edit, SquareMousePointer, Trash} from "lucide-react"
 import {useLayoutEffect, useRef} from "react"
 import Project from "./Project"
 import RightPanel from "./RightPanel"
+import ThemeCustomizer from "./ThemeCustomizer"
+import ThemeProvider from "./ThemeProvider"
 import {Button} from "./ui/button"
 
 export default function Editor() {
@@ -78,11 +80,12 @@ export default function Editor() {
                 <Button size="icon" variant="ghost" disabled={!isSelecting}>
                     <Edit />
                 </Button>
+                <ThemeCustomizer />
             </div>
             <div className="flex h-full">
-                <div className="flex-1">
+                <ThemeProvider className="flex-1">
                     <Project />
-                </div>
+                </ThemeProvider>
                 <div className="w-1/5 bg-gray-100 flex-shrink-0">
                     <RightPanel />
                 </div>
