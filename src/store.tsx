@@ -1,8 +1,15 @@
 import {create} from "zustand"
 import {Block} from "./components/block"
 
+export interface Revision {
+    project: string
+    date: string
+}
+
 export interface Store {
     project: {
+        revisions: Revision[]
+        setRevisions: (revisions: Revision[]) => void
         editingBlock?: Block
         setEditingBlock: (block: Block) => void
         headerStack: Block[]
@@ -39,6 +46,14 @@ const useStore = create<Store>()((set) => ({
             },
         })),
     project: {
+        revisions: [],
+        setRevisions: (revisions) =>
+            set((store) => ({
+                project: {
+                    ...store.project,
+                    revisions,
+                },
+            })),
         editingBlock: undefined,
         setEditingBlock: (block) =>
             set((store) => ({
