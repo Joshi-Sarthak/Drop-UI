@@ -9,6 +9,7 @@ import Palette from "./components/Palette"
 import Preview from "./components/Preview" // Import Preview Page
 import PrivateRoute from "./components/PrivateRoute"
 import SignUp from "./components/Signup"
+import AllGenerated from "./components/AllGenerated"
 
 export default function App() {
     return (
@@ -16,6 +17,7 @@ export default function App() {
             <NavBar />
             <Routes>
                 {/* Main Editor Page */}
+                <Route path="/all" element={<AllGenerated />} />
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />

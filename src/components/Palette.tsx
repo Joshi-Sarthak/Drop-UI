@@ -212,7 +212,6 @@ export default function Palette() {
 </div>`,
         }
     ])
-
     const groupedComponents = items.reduce(
         (acc, component) => {
             if (!acc[component.type]) {
@@ -243,6 +242,19 @@ export default function Palette() {
                 body: JSON.stringify({prompt: message}),
             })
             const data = await res.json()
+            console.log(data.html)
+            console.log(message)
+            const accessToken = localStorage.getItem("token")
+            console.log(accessToken)
+            const res1 = await fetch("https://ui-ai.onrender.com/components/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify({description: message, html: data.html}),
+            })
+            console.log(res1)
             setMessage("")
             setItems((prev) => [
                 ...prev,
