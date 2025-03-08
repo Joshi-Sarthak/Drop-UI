@@ -1,6 +1,7 @@
 import {useState} from "react"
 import {BsStars} from "react-icons/bs"
 import useStore from "../store"
+import {TypingAnimation} from "@/components/magicui/typing-animation"
 
 export default function RightPanel() {
     const {headerStack, leftStack, rightStack, footerStack} = useStore(
@@ -111,15 +112,7 @@ export default function RightPanel() {
             {suggestion && (
                 <div className="mt-4 p-4 bg-neutral-100 rounded-lg overflow-auto">
                     <h3 className="font-semibold text-lg">AI Suggestion:</h3>
-                    <p className="text-sm text-neutral-700 whitespace-pre-line">
-                        {suggestion
-                            .split("**")
-                            .map((part, index) =>
-                                index % 2 === 1 ?
-                                    <strong key={index}>{part}</strong>
-                                :   part,
-                            )}
-                    </p>
+                    <TypingAnimation>{suggestion.replace(/\*\*/g, "")}</TypingAnimation>
                 </div>
             )}
         </div>
