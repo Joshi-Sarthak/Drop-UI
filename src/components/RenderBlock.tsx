@@ -1,7 +1,9 @@
 // import {Nodebox} from "@codesandbox/nodebox"
 // import {useEffect, useState} from "react"
 
-import htmlReactParser from "html-react-parser"
+import JsxParser from "react-jsx-parser"
+import {Block} from "./block"
+import {Button} from "./ui/button"
 
 // const runtime = new Nodebox({
 //     iframe: document.getElementById("nodebox-iframe") as HTMLIFrameElement,
@@ -60,11 +62,21 @@ import htmlReactParser from "html-react-parser"
 //     }
 // }
 
-export interface ComponentProps {
-    title: string
-    code: string
+export interface RenderBlockProps {
+    block: Block
 }
 
-export default function Component({code}: ComponentProps) {
-    return htmlReactParser(code)
+export default function RenderBlock({block}: RenderBlockProps) {
+    return (
+        // @ts-ignore
+        <JsxParser
+            autoCloseVoidElements
+            jsx={block.jsx}
+            bindings={block.props}
+            components={{
+                Button,
+            }}
+            renderInWrapper={false}
+        />
+    )
 }

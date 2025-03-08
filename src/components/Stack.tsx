@@ -1,3 +1,4 @@
+import useStore from "@/store"
 import {
     attachClosestEdge,
     Edge,
@@ -5,28 +6,25 @@ import {
 } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge"
 import {DropIndicator} from "@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box"
 import {dropTargetForElements} from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
-import {
-    Button,
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-    useDisclosure,
-} from "@heroui/react"
-import {LightningBoltIcon, Pencil1Icon, TrashIcon} from "@radix-ui/react-icons"
 import {useEffect, useRef, useState} from "react"
-import {StaticComponent} from "../store"
-import Component from "./Component"
-import ComponentEditor from "./ComponentEditor"
+import {Block} from "./block"
+import RenderBlock from "./RenderBlock"
 
 function StackItem({
+    section,
     index,
     children,
     props,
 }: {
+    section: "header" | "footer" | "left" | "right"
     index: number
-    children: StaticComponent
+    children: Block
     props: StackProps
 }) {
+    const isSelecting = useStore((store) => store.project.isSelecting)
+    const selection = useStore((store) => store.project.selection)
+    const stopSelecting = useStore((store) => store.project.stopSelecting)
+    const setSelection = useStore((store) => store.project.setSelection)
     const ref = useRef<HTMLDivElement>(null)
     const [isDraggedOver, setIsDraggedOver] = useState(false)
     const [closestEdge, setClosestEdge] = useState<Edge | null>(null)
@@ -85,66 +83,26 @@ function StackItem({
             },
         })
     }, [index, props])
-    // TODO: Prevent drag-and-drop when editing
-    const [isEditing, setIsEditing] = useState(false)
-    const disclosure = useDisclosure()
     return (
         <>
             <div
                 ref={ref}
-                className={`relative flex-grow flex flex-col ${isDraggedOver && "opacity-50"}`}
+                className={`relative flex-grow flex flex-col ${isDraggedOver && "opacity-50"} ${
+                    isSelecting &&
+                    "hover:outline-2 hover:outline-blue-400 hover:opacity-50"
+                } ${
+                    selection &&
+                    section === selection.stack &&
+                    index === selection.index &&
+                    "outline-2 outline-blue-400 opacity-50"
+                }`}
+                onClick={() => {
+                    if (isSelecting) {
+                        setSelection(section, index)
+                    }
+                }}
             >
-                {isEditing ?
-                    <ComponentEditor
-                        {...children}
-                        onEditingDone={(title, code) => {
-                            setIsEditing(false)
-                            props.setComponents(
-                                props.components.map((component, i) =>
-                                    i === index ? {title, code} : component,
-                                ),
-                            )
-                        }}
-                    />
-                :   <Popover
-                        isOpen={disclosure.isOpen}
-                        onOpenChange={disclosure.onOpenChange}
-                        placement="top"
-                    >
-                        <PopoverTrigger>
-                            <div>
-                                <Component {...children} />
-                            </div>
-                        </PopoverTrigger>
-                        <PopoverContent>
-                            <div className="flex bg-white rounded border shadow-xl">
-                                <Button
-                                    isIconOnly
-                                    onPress={() => {
-                                        setIsEditing(true)
-                                    }}
-                                >
-                                    <Pencil1Icon />
-                                </Button>
-                                <Button isIconOnly>
-                                    <LightningBoltIcon />
-                                </Button>
-                                <Button
-                                    isIconOnly
-                                    onPress={() => {
-                                        props.setComponents(
-                                            props.components.filter(
-                                                (_, i) => i !== index,
-                                            ),
-                                        )
-                                    }}
-                                >
-                                    <TrashIcon />
-                                </Button>
-                            </div>
-                        </PopoverContent>
-                    </Popover>
-                }
+                <RenderBlock block={children} />
                 {closestEdge && <DropIndicator edge={closestEdge} />}
             </div>
         </>
@@ -183,9 +141,10 @@ function EmptyStack({props}: {props: StackProps}) {
 }
 
 export interface StackProps {
+    section: "header" | "footer" | "left" | "right"
     direction: "horizontal" | "vertical"
-    components: StaticComponent[]
-    setComponents: (components: StaticComponent[]) => void
+    components: Block[]
+    setComponents: (components: Block[]) => void
 }
 
 export default function Stack(props: StackProps) {
@@ -198,6 +157,7 @@ export default function Stack(props: StackProps) {
         >
             {props.components.map((component, index) => (
                 <StackItem
+                    section={props.section}
                     key={index}
                     index={index}
                     children={component}

@@ -1,17 +1,17 @@
 import {draggable} from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
 import {useEffect, useLayoutEffect, useRef, useState} from "react"
-import Component from "./Component"
+import Component from "./RenderBlock"
+import {Block} from "./block"
 
 function forceReflow(el: HTMLElement) {
     return el.offsetHeight
 }
 
-export interface PaletteComponentProps {
-    title: string
-    code: string
+export interface PaletteItemProps {
+    block: Block
 }
 
-export default function PaletteComponent({title, code}: PaletteComponentProps) {
+export default function PaletteItem({block}: PaletteItemProps) {
     const ref = useRef<HTMLDivElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
     const componentRef = useRef<HTMLDivElement>(null)
@@ -37,7 +37,7 @@ export default function PaletteComponent({title, code}: PaletteComponentProps) {
     useEffect(() => {
         function onResize() {
             clearTimeout(onResizeTimeout.current)
-            onResizeTimeout.current = setTimeout(update, 50)
+            onResizeTimeout.current = window.setTimeout(update, 50)
         }
         window.addEventListener("resize", onResize)
         return () => {
@@ -51,12 +51,12 @@ export default function PaletteComponent({title, code}: PaletteComponentProps) {
         return draggable({
             element: ref.current,
             getInitialData: () => {
-                return {title, code}
+                return {...block}
             },
             onDragStart: () => setIsBeingDragged(true),
             onDrop: () => setIsBeingDragged(false),
         })
-    }, [])
+    }, [block])
     return (
         <div
             ref={ref}
@@ -69,7 +69,7 @@ export default function PaletteComponent({title, code}: PaletteComponentProps) {
                         className="absolute origin-top-left"
                         style={{scale: componentScale}}
                     >
-                        <Component code={code} />
+                        <Component block={block} />
                     </div>
                 </div>
             </div>

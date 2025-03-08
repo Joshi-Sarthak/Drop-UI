@@ -7,6 +7,7 @@ export default function ProjectRightContent() {
     return (
         <div className="flex-[0_1_auto]">
             <Stack
+                section="right"
                 direction="vertical"
                 components={rightStack}
                 setComponents={setRightStack}
