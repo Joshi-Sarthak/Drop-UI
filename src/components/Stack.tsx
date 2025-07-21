@@ -25,7 +25,6 @@ function StackItem({
 }) {
     const isSelecting = useStore((store) => store.project.isSelecting)
     const selection = useStore((store) => store.project.selection)
-    const stopSelecting = useStore((store) => store.project.stopSelecting)
     const setSelection = useStore((store) => store.project.setSelection)
     const isEditing = useStore((store) => store.project.isEditing)
     const ref = useRef<HTMLDivElement>(null)

@@ -1,12 +1,12 @@
 import {useState, ChangeEvent, FormEvent, useContext} from "react"
 import {Link} from "react-router-dom"
 import {AuthContext} from "../context/AuthContext"
-import {AnimatedGridPattern} from "./magicui/animated-grid-pattern"
+import {AnimatedGridPattern} from "../components/magicui/animated-grid-pattern"
 import {cn} from "@/lib/utils"
 
-const SignUp = () => {
+const Login = () => {
     const {login} = useContext(AuthContext)!
-    const [formData, setFormData] = useState({email: "", password: "", name: ""})
+    const [formData, setFormData] = useState({email: "", password: ""})
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
@@ -21,18 +21,6 @@ const SignUp = () => {
 
         try {
             console.log(formData)
-            console.log(formData)
-            const createResponse = await fetch("https://ui-ai.onrender.com/users", {
-                // <-- updated to /users
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(formData),
-            })
-            console.log(createResponse)
-            if (!createResponse.ok) {
-                throw new Error("Signup failed. Please try again.")
-            }
-
             const response = await fetch("https://ui-ai.onrender.com/login", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -44,7 +32,6 @@ const SignUp = () => {
             }
 
             const data = await response.json()
-            console.log(data)
             login(data.access_token)
         } catch (error) {
             setError(error instanceof Error ? error.message : "Something went wrong")
@@ -67,17 +54,9 @@ const SignUp = () => {
                     )}
                 />
             </div>
-
-            <div className="bg-neutral-100/50 p-8  shadow-md w-96 border border-neutral-400 rounded-3xl z-10">
-                <h1 className="text-2xl font-semibold mb-4 text-center">Sign Up</h1>
+            <div className="bg-neutral-100/50 p-8 shadow-md w-96 border border-neutral-400 rounded-3xl z-10">
+                <h1 className="text-2xl font-semibold mb-4 text-center">Login</h1>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <input
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        className="p-2 border border-stone-400 rounded-lg bg-neutral-50"
-                        onChange={handleChange}
-                    />
                     <input
                         type="email"
                         name="email"
@@ -118,12 +97,12 @@ const SignUp = () => {
                                     </svg>
                                 </div>
                             </div>
-                        :   "Sign Up"}
+                        :   "Login"}
                     </button>
                 </form>
                 <div className="mt-4">
-                    <Link to="/login" className="text-stone-900 hover:underline">
-                        Already have an account? Sign in
+                    <Link to="/signup" className="text-stone-900 hover:underline">
+                        New User? Create an Account
                     </Link>
                 </div>
                 {error && <p className="text-red-500 mt-2">{error}</p>}
@@ -132,4 +111,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default Login

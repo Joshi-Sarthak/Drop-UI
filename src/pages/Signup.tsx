@@ -1,12 +1,12 @@
-import {useState, ChangeEvent, FormEvent, useContext} from "react"
+import {useState, ChangeEvent, FormEvent} from "react"
 import {Link} from "react-router-dom"
-import {AuthContext} from "../context/AuthContext"
-import {AnimatedGridPattern} from "./magicui/animated-grid-pattern"
-import {cn} from "@/lib/utils"
 
-const Login = () => {
-    const {login} = useContext(AuthContext)!
-    const [formData, setFormData] = useState({email: "", password: ""})
+import {AnimatedGridPattern} from "../components/magicui/animated-grid-pattern"
+import {cn} from "@/lib/utils"
+import {authClient} from "@/lib/auth-client"
+
+const SignUp = () => {
+    const [formData, setFormData] = useState({email: "", password: "", name: ""})
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
 
@@ -20,19 +20,19 @@ const Login = () => {
         setError(null)
 
         try {
-            console.log(formData)
-            const response = await fetch("https://ui-ai.onrender.com/login", {
-                method: "POST",
+            const res = await fetch("http://localhost:3000/", {
+                method: "GET",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(formData),
+                credentials: "include",
             })
-            console.log(response)
-            if (!response.ok) {
-                throw new Error("Login failed. Please check your credentials.")
-            }
-
-            const data = await response.json()
-            login(data.access_token)
+            console.log(res.json().then((data) => console.log(data)))
+            const {data, error} = await authClient.signUp.email({
+                name: formData.name, // required
+                email: formData.email, // required
+                password: formData.password, // required
+                callbackURL: "/editor",
+            })
+            console.log(data, error)
         } catch (error) {
             setError(error instanceof Error ? error.message : "Something went wrong")
         } finally {
@@ -54,9 +54,17 @@ const Login = () => {
                     )}
                 />
             </div>
-            <div className="bg-neutral-100/50 p-8 shadow-md w-96 border border-neutral-400 rounded-3xl z-10">
-                <h1 className="text-2xl font-semibold mb-4 text-center">Login</h1>
+
+            <div className="bg-neutral-100/50 p-8  shadow-md w-96 border border-neutral-400 rounded-3xl z-10">
+                <h1 className="text-2xl font-semibold mb-4 text-center">Sign Up</h1>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        className="p-2 border border-stone-400 rounded-lg bg-neutral-50"
+                        onChange={handleChange}
+                    />
                     <input
                         type="email"
                         name="email"
@@ -97,12 +105,12 @@ const Login = () => {
                                     </svg>
                                 </div>
                             </div>
-                        :   "Login"}
+                        :   "Sign Up"}
                     </button>
                 </form>
                 <div className="mt-4">
-                    <Link to="/signup" className="text-stone-900 hover:underline">
-                        New User? Create an Account
+                    <Link to="/login" className="text-stone-900 hover:underline">
+                        Already have an account? Sign in
                     </Link>
                 </div>
                 {error && <p className="text-red-500 mt-2">{error}</p>}
@@ -111,4 +119,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default SignUp

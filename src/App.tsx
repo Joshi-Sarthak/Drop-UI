@@ -2,13 +2,13 @@ import "allotment/dist/style.css"
 import {Route, BrowserRouter as Router, Routes} from "react-router-dom"
 import Editor from "./components/Editor"
 import Footer from "./components/Footer"
-import LandingPage from "./components/LandingPage"
-import Login from "./components/Login"
+import LandingPage from "./pages/LandingPage"
+import Login from "@/pages/Login"
 import NavBar from "./components/NavBar"
 import Palette from "./components/Palette"
 import Preview from "./components/Preview" // Import Preview Page
-import PrivateRoute from "./components/PrivateRoute"
-import SignUp from "./components/Signup"
+
+import SignUp from "@/pages/Signup"
 import AllGenerated from "./components/AllGenerated"
 
 export default function App() {
@@ -34,7 +34,6 @@ export default function App() {
                     path="/editor"
                     element={
                         <>
-                            {<PrivateRoute />}
                             <div className="flex h-screen">
                                 <div className="w-1/5 bg-neutral-100 rounded-2xl border border-neutral-200 flex-shrink-0">
                                     <Palette />

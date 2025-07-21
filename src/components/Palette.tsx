@@ -5,7 +5,6 @@ import PaletteItem from "./PaletteComponent"
 import {Block} from "./block"
 import Navbar1 from "@/library/Navbars/Navbar1"
 import Navbar2 from "@/library/Navbars/Navbar2"
-import Navbar3 from "@/library/Navbars/Navbar3"
 
 export default function Palette() {
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({})
@@ -231,7 +230,7 @@ export default function Palette() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${accessToken}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
                 body: JSON.stringify({description: message, html: data.html}),
             })

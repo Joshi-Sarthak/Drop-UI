@@ -40,6 +40,7 @@ export default function RightPanel() {
         const requestBody = {prompt: message.prompt, html}
         setMessage({...message, html})
         setLoading(true)
+        console.log(selectedBlock)
         console.log(requestBody)
         try {
             const response = await fetch("https://ui-ai.onrender.com/suggest", {
