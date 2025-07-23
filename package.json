@@ -5,6 +5,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
+        "postinstall": "npm install @rollup/rollup-linux-x64-gnu || true",
         "build": "tsc -b && vite build",
         "lint": "eslint .",
         "preview": "vite preview",
