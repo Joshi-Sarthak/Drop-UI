@@ -66,6 +66,16 @@ export interface RenderBlockProps {
 }
 
 export default function RenderBlock({block}: RenderBlockProps) {
-    const html = parse(block.html)
-    return html
+    if (block.jsx) {
+        // If JSX is provided, render it directly
+        return <>{block.jsx}</>
+    }
+
+    if (block.html && typeof block.html === "string") {
+        // If HTML string is provided, parse it
+        return <>{parse(block.html)}</>
+    }
+
+    // Fallback: nothing to render
+    return <div>Invalid block</div>
 }

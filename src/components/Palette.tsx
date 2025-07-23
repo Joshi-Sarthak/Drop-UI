@@ -5,6 +5,7 @@ import PaletteItem from "./PaletteComponent"
 import {Block} from "./block"
 import Navbar1 from "@/library/Navbars/Navbar1"
 import Navbar2 from "@/library/Navbars/Navbar2"
+import {Button} from "./ui/button"
 
 export default function Palette() {
     const [openSections, setOpenSections] = useState<Record<string, boolean>>({})
@@ -13,7 +14,7 @@ export default function Palette() {
     const [items, setItems] = useState<Block[]>([
         {
             type: "Buttons",
-            html: `<button type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Button</button>`,
+            jsx: <Button>Text here</Button>,
         },
         {
             type: "Buttons",

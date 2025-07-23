@@ -81,7 +81,7 @@ const SignUp = () => {
                     />
                     <button
                         type="submit"
-                        className="bg-stone-900 rounded-3xl hover:bg-stone-950 text-white font-semibold transition-all duration-200 p-2"
+                        className="bg-stone-900 rounded-lg hover:bg-stone-950 text-white font-semibold transition-all duration-200 p-2"
                         disabled={loading}
                     >
                         {loading ?
