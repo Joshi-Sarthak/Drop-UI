@@ -1,4 +1,4 @@
-"use client" 
+"use client"
 
 import {
     motion,
@@ -12,6 +12,7 @@ import {
 import React, {useEffect, useRef, useState} from "react"
 
 import {cn} from "@/lib/utils"
+import {wrap} from "./wrap"
 
 interface VelocityScrollProps extends React.HTMLAttributes<HTMLDivElement> {
     defaultVelocity?: number
@@ -22,11 +23,6 @@ interface VelocityScrollProps extends React.HTMLAttributes<HTMLDivElement> {
 interface ParallaxProps extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode
     baseVelocity: number
-}
-
-export const wrap = (min: number, max: number, v: number) => {
-    const rangeSize = max - min
-    return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min
 }
 
 function ParallaxText({children, baseVelocity = 100, ...props}: ParallaxProps) {
