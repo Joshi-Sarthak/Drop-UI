@@ -3,6 +3,7 @@ import {Link} from "react-router-dom"
 import {AuthContext} from "../context/AuthContext"
 import {AnimatedGridPattern} from "../components/magicui/animated-grid-pattern"
 import {cn} from "@/lib/utils"
+import {motion} from "framer-motion"
 
 const Login = () => {
     const {login} = useContext(AuthContext)!
@@ -54,7 +55,12 @@ const Login = () => {
                     )}
                 />
             </div>
-            <div className="bg-neutral-100/50 p-8 shadow-md w-96 border border-neutral-400 rounded-3xl z-10">
+            <motion.div
+                className="bg-neutral-100/50 p-8 shadow-md w-96 border border-neutral-400 rounded-3xl z-10"
+                initial={{opacity: 0, x: -20}}
+                animate={{opacity: 1, x: 0}}
+                transition={{duration: 0.3}}
+            >
                 <h1 className="text-2xl font-semibold mb-4 text-center">Login</h1>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <input
@@ -106,7 +112,7 @@ const Login = () => {
                     </Link>
                 </div>
                 {error && <p className="text-red-500 mt-2">{error}</p>}
-            </div>
+            </motion.div>
         </div>
     )
 }

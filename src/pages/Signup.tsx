@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 
 import {AnimatedGridPattern} from "../components/magicui/animated-grid-pattern"
 import {cn} from "@/lib/utils"
-import {authClient} from "@/lib/auth-client"
+import {motion} from "framer-motion"
 
 const SignUp = () => {
     const [formData, setFormData] = useState({email: "", password: "", name: ""})
@@ -20,19 +20,12 @@ const SignUp = () => {
         setError(null)
 
         try {
-            const res = await fetch("http://localhost:3000/", {
-                method: "GET",
+            const res = await fetch("https://ui-ai.onrender.com/users", {
+                method: "POST",
                 headers: {"Content-Type": "application/json"},
-                credentials: "include",
+                body: JSON.stringify(formData),
             })
             console.log(res.json().then((data) => console.log(data)))
-            const {data, error} = await authClient.signUp.email({
-                name: formData.name, // required
-                email: formData.email, // required
-                password: formData.password, // required
-                callbackURL: "/editor",
-            })
-            console.log(data, error)
         } catch (error) {
             setError(error instanceof Error ? error.message : "Something went wrong")
         } finally {
@@ -55,7 +48,12 @@ const SignUp = () => {
                 />
             </div>
 
-            <div className="bg-neutral-100/50 p-8  shadow-md w-96 border border-neutral-400 rounded-3xl z-10">
+            <motion.div
+                className="bg-neutral-100/50 p-8  shadow-md w-96 border border-neutral-400 rounded-3xl z-10"
+                initial={{opacity: 0, x: -20}}
+                animate={{opacity: 1, x: 0}}
+                transition={{duration: 0.3}}
+            >
                 <h1 className="text-2xl font-semibold mb-4 text-center">Sign Up</h1>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <input
@@ -114,7 +112,7 @@ const SignUp = () => {
                     </Link>
                 </div>
                 {error && <p className="text-red-500 mt-2">{error}</p>}
-            </div>
+            </motion.div>
         </div>
     )
 }
