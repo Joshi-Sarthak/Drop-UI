@@ -161,7 +161,7 @@ export default function Stack(props: StackProps) {
     }
     return (
         <div
-            className={`flex ${props.direction === "horizontal" ? "flex-row" : "flex-col"}`}
+            className={`flex ${props.direction === "horizontal" ? "flex-row" : "flex-col"} justify-center items-center h-full`}
         >
             {props.components.map((component, index) => (
                 <StackItem
