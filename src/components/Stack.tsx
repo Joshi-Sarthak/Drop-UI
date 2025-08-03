@@ -25,7 +25,6 @@ function StackItem({
 }) {
     const isSelecting = useStore((store) => store.project.isSelecting)
     const selection = useStore((store) => store.project.selection)
-    const stopSelecting = useStore((store) => store.project.stopSelecting)
     const setSelection = useStore((store) => store.project.setSelection)
     const isEditing = useStore((store) => store.project.isEditing)
     const ref = useRef<HTMLDivElement>(null)
@@ -162,7 +161,7 @@ export default function Stack(props: StackProps) {
     }
     return (
         <div
-            className={`flex ${props.direction === "horizontal" ? "flex-row" : "flex-col"}`}
+            className={`flex ${props.direction === "horizontal" ? "flex-row" : "flex-col"} justify-center items-center h-full`}
         >
             {props.components.map((component, index) => (
                 <StackItem

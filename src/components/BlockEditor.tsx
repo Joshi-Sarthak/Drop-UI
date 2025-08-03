@@ -30,7 +30,9 @@ export default function BlockEditor({block}: BlockEditorProps) {
                     })
                 }
             }}
-            dangerouslySetInnerHTML={{__html: editingBlock?.html ?? block.html}}
+            dangerouslySetInnerHTML={{
+                __html: (editingBlock?.html as string) ?? block.html,
+            }}
         ></div>
     )
 }
